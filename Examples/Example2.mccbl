@@ -1,0 +1,6 @@
+@TYPE REPEAT
+@CHAIN ON
+@VERSION 1.9
+scoreboard objectives add !thisScoreboard 
+tellraw @a {text:Hi}
+scoreboard players add @a[score_thisScoreboard_min=1] !thisScoreboard 1

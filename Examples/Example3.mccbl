@@ -1,0 +1,5 @@
+@TYPE REPEAT
+@CHAIN ON
+@VERSION 1.9
+testfor @a[r=3]
+?say hi

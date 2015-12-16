@@ -1,0 +1,64 @@
+@TYPE REPEAT
+@CHAIN ON
+@VERSION 1.9
+//HEADER:
+//The header MUST be on lines 1-3 of the document
+//First line must be script type: either @TYPE ONCE or @TYPE REPEAT
+//If ONCE: The first command block will be an impulse command block
+//If REPEAT: The first command block will be a repeat command block
+//Second line must be chain type: either @CHAIN ON or @CHAIN OFF
+//If ON: All command blocks in the chain will be always on
+//If OFF: All command blocks in the chain will need to be powered individually to run
+//Third line must be version number @VERSION x.y.z but not a snapshot. So 15w37a would be 1.9 and 1.8.7 would be 1.8.7
+
+//Lines starting with // are comments and are ignored by the interpreter completely
+
+:: "Code Section"
+	//Code sections are denoted by :: and ;;
+	//Sections provide an easy way to manage lots of code in one document
+	//Use :: to start a section, then put a name in quotes and use ;; to end a section
+	//Lines of code starting with :: and ;; are also treated as comments
+	//Each section should be indented one step
+	//Sections can be collapsed by clicking the [-] next to the beginning of the section
+;;
+:: "Other Section"	
+	scoreboard objectives add @!testObj dummy
+	//An example of a basic command
+	//Do NOT start commands with a forward slash
+	//For scoreboard objectives, tags, team names, and anything else you want syntax highlighted, prefix the object with a '@!' (no quotes)
+	//This is simply used for syntax highlighting and is ignored by the interpreter
+	//If we did not do this, it would not be syntax highlighted: (example)
+	scoreboard objectives add testObj dummy
+
+	//Code that is red and underlined is most likely not good
+	//If text is red, it is not a minecraft command keyword or known command argument
+	EXAMPLE: This text is red since it is not a command
+	say This however is a valid command, but the say command isn't syntax highlighted (use tellraw instead!)
+
+	execute @a[0,0,0,5] ~ ~ ~ tellraw @a ["",{"selector":"@p","italic":true},{"text":" is near (0,0,0)","color":"gold","italic":true}]
+	//Execute commands work exactly as they should, no differences here. Tellraw and other commands that use JSON are also exactly the same
+
+	give @a minecraft:glass 1 0
+	//The give command is no different either, just make sure to prefix the item name with minecraft:
+
+	testfor @a
+	?tellraw @a ["",{"text":"There are players online","color":"gold","italic":true}]
+	?scoreboard players set @r @!luckyWinner 1
+	?tellraw @a ["",{"selector":"@a[score_luckyWinner_min=1]","italic":true},{"text":" is the lucky winner!","color":"gold","italic":true}]
+	//Conditionals:
+	//Minecraft supports conditional commands, and to use a conditional, prefix the command with a ?
+	//Any lines that start with a ? (ignoring whitespace before it) are imported as a conditional command and the ? is ignored
+	//HOWEVER: (this is IMPORTANT)
+	//The interpreter does not fully support conditional commands
+	//To see why, see the following two files:
+	// /Examples/Conditionals Issue - README.txt
+	// /Examples/Conditionals Issue.png
+	
+	execute @a[score_facing_min=15,score_facing=15,tag=breathingFire] ~ ~ ~ summon Arrow ~([-.8*cos((-15+90)*3.14159265359/180)]) ~1.56 ~([.8*sin((-15+90)*3.14159265359/180)]) {Motion:[([-.9*cos((-15+90)*3.14159265359/180)]),0.1,([.9*sin((-15+90)*3.14159265359/180)])],Fire:1000000,Tags:["isFire"],damage:0}
+	//This is an example of an advanced command using the interpreter's math calculation features
+	//Surround an equation with ([ and ]) for the interpreter to automatically replace it with the answer
+	//This is useful when lots of trigonometry is needed for coordinates etc.
+	
+	//Everything else works exactly as you would expect it to
+	//To see more detailed instructions about the syntax, visit the wiki at http://github.com/aopell/MCCBL/wiki
+;;
