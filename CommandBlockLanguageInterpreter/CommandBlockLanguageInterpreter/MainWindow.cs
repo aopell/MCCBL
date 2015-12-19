@@ -56,7 +56,7 @@ namespace CommandBlockLanguageInterpreter
                 ServerManager.StartServer(ChooseFileDialog.FileName, this);
 
                 startToolStripMenuItem.Disable();
-                toolsToolStripMenuItem.Enable();
+                toolsToolStripMenuItem.Enabled = true;
                 importCommandBlockLanguageFileToolStripMenuItem.Enable();
                 stopToolStripMenuItem.Enable();
                 restartToolStripMenuItem.Enable();
