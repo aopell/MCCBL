@@ -250,129 +250,154 @@ namespace CommandBlockLanguageInterpreter
                                         break;
                                     }
                                 }
-                            }
 
-                            //Checks for premade custom commands
-                            //TODO: Allow turning these commands on or off
-                            //TODO: Specify which players can use these commands
 
-                            //Imports a MCCBL from the given link or file path at the player who used the command
-                            //Examples:
-                            //@!import http://example.com/mccblfile.mccbl
-                            //@!import http://example.com/textfile.txt
-                            //@!import C:\Users\TestUser\Documents\localfile.mccbl
-                            if (chatMessage.TrimStart().StartsWith("@!import "))
-                            {
-                                string link = chatMessage.Split(new string[] { "@!import" }, StringSplitOptions.None)[1].Trim();
-                                CBLInterpreter interpreter = new CBLInterpreter(this, link, true, ChatTools.FilterUsername(ChatTools.FilterCommand(ServerManager.LastRecievedMessage)));
-                                ConsoleWindow.SelectionColor = Color.Cyan;
-                                ConsoleWindow.AppendText("\nRemote Importing from " + link);
-                                SendCommand("say §6Remote §6Importing §6from §b§l" + link + " §6as §b§lRemote §b§lImport.mccbl");
-                                interpreter.Interpret(link);
-                                ConsoleWindow.SelectionColor = Color.Cyan;
-                                ConsoleWindow.AppendText("\nSuccessfully imported " + interpreter.commands.Count + " commands");
-                                SendCommand("say §aSuccessfully §aimported §e§l" + interpreter.commands.Count + " §acommands");
-                                SendCommand("say §c§l§nDon't §c§l§nforget §cto §cenable §cthe §cfirst §cCommand §cBlock §cif §cnecessary");
-                            }
-                            //Reimports the last locally imported file at the given selector
-                            //Does not reimport from a link
-                            //Example:
-                            //@!reimport @p
-                            else if (chatMessage.TrimStart().StartsWith("@!reimport "))
-                            {
-                                ImportFile(true, chatMessage.Split(new string[] { "@!reimport" }, StringSplitOptions.None)[1].Trim());
-                            }
-                            //Restarts the server by sending the 'stop' command and then restarting it
-                            //Example:
-                            //@!restart
-                            else if (chatMessage.TrimStart().StartsWith("@!restart"))
-                            {
-                                ServerManager.Restart = true;
-                                Close();
-                            }
-                            //Adds the specefied text to a text file stored in the server's root directory
-                            //Useful to store coordinates or ideas
-                            //Example:
-                            //@!addline This text will be put in a text file
-                            else if (chatMessage.TrimStart().StartsWith("@!addtext "))
-                            {
-                                string textLine = chatMessage.Split(new string[] { "@!addtext" }, StringSplitOptions.None)[1].Trim();
-                                timeString = DateTime.Now.ToString("M/d HH:mm:ss");
-                                try
+                                //Checks for premade custom commands
+                                //TODO: Allow turning these commands on or off
+                                //TODO: Specify which players can use these commands
+
+                                //Imports a MCCBL from the given link or file path at the player who used the command
+                                //Examples:
+                                //@!import http://example.com/mccblfile.mccbl
+                                //@!import http://example.com/textfile.txt
+                                //@!import C:\Users\TestUser\Documents\localfile.mccbl
+                                if (chatMessage.TrimStart().StartsWith("@!import "))
                                 {
-                                    File.AppendAllLines(Path.GetDirectoryName(ServerManager.ServerJarPath) + ServerManager.MinecraftServer.StartInfo.WorkingDirectory.Split('\\')[ServerManager.MinecraftServer.StartInfo.WorkingDirectory.Split('\\').Length - 1] + ".txt", new string[] { "[" + timeString + "] <" + user + "> " + textLine });
-                                    SendCommand("say §aAdded §aline §ato §afile §asuccessfully");
+                                    string link = chatMessage.CommandArgument("@!import");
+                                    CBLInterpreter interpreter = new CBLInterpreter(this, link, true, ChatTools.FilterUsername(ChatTools.FilterCommand(ServerManager.LastRecievedMessage)));
+                                    ConsoleWindow.SelectionColor = Color.Cyan;
+                                    ConsoleWindow.AppendText("\nRemote Importing from " + link);
+                                    SendCommand("say §6Remote §6Importing §6from §b§l" + link + " §6as §b§lRemote §b§lImport.mccbl");
+                                    interpreter.Interpret(link);
+                                    ConsoleWindow.SelectionColor = Color.Cyan;
+                                    ConsoleWindow.AppendText("\nSuccessfully imported " + interpreter.commands.Count + " commands");
+                                    SendCommand("say §aSuccessfully §aimported §e§l" + interpreter.commands.Count + " §acommands");
+                                    SendCommand("say §c§l§nDon't §c§l§nforget §cto §cenable §cthe §cfirst §cCommand §cBlock §cif §cnecessary");
                                 }
-                                catch (Exception ex)
+                                //Reimports the last locally imported file at the given selector
+                                //Does not reimport from a link
+                                //Example:
+                                //@!reimport @p
+                                else if (chatMessage.TrimStart().StartsWith("@!reimport "))
                                 {
-                                    SendCommand("say §cFailed §cto §cadd §cline §cto §cfile: " + ex.Message);
+                                    ImportFile(true, chatMessage.CommandArgument("@!reimport"));
                                 }
-                            }
-                            //Views a page (5 lines) from the text file
-                            //Example:
-                            //@!viewtext 3
-                            //@!viewtext
-                            else if (chatMessage.TrimStart().StartsWith("@!viewtext "))
-                            {
-                                try
+                                //Restarts the server by sending the 'stop' command and then restarting it
+                                //Example:
+                                //@!restart
+                                else if (chatMessage.TrimStart().StartsWith("@!restart"))
                                 {
-                                    int page = 0;
-                                    if (!int.TryParse(chatMessage.Split(new string[] { "@!viewtext" }, StringSplitOptions.None)[1].Trim(), out page))
+                                    ServerManager.Restart = true;
+                                    Close();
+                                }
+                                //Adds the specefied text to a text file stored in the server's root directory
+                                //Useful to store coordinates or ideas
+                                //Example:
+                                //@!addline This text will be put in a text file
+                                //@!addtext This text will be put in a text file
+                                else if (chatMessage.TrimStart().StartsWith("@!addtext ") || chatMessage.TrimStart().StartsWith("@!addline "))
+                                {
+                                    string textLine = chatMessage.CommandArgument("@!addtext");
+                                    timeString = DateTime.Now.ToString("M/d HH:mm:ss");
+                                    try
                                     {
-                                        page = 1;
+                                        File.AppendAllLines(Path.GetDirectoryName(ServerManager.ServerJarPath) + ServerManager.MinecraftServer.StartInfo.WorkingDirectory.Split('\\')[ServerManager.MinecraftServer.StartInfo.WorkingDirectory.Split('\\').Length - 1] + ".txt", new string[] { "[" + timeString + "] <" + user + "> " + textLine });
+                                        SendCommand("say §aAdded §aline §ato §afile §asuccessfully");
                                     }
-                                    string[] fileLines = File.ReadAllLines(Path.GetDirectoryName(ServerManager.ServerJarPath) + ServerManager.MinecraftServer.StartInfo.WorkingDirectory.Split('\\')[ServerManager.MinecraftServer.StartInfo.WorkingDirectory.Split('\\').Length - 1] + ".txt");
-                                    SendCommand("tellraw " + user + " [\"\",{\"text\":\"Page " + page + "/" + Math.Ceiling(fileLines.Length / 5f) + "\",\"color\":\"aqua\"}]");
-                                    for (int i = 5 * page - 5; i < 5 * page; i++)
+                                    catch (Exception ex)
                                     {
-                                        SendCommand("tellraw " + user + " [\"\",{\"text\":\"" + i + 1 + ": " + fileLines[i] + "\",\"color\":\"aqua\"}]");
+                                        SendCommand("say §cFailed §cto §cadd §cline §cto §cfile: " + ex.Message);
                                     }
                                 }
-                                catch (Exception ex)
+                                //Views a page (5 lines) from the text file
+                                //Example:
+                                //@!viewtext 3
+                                //@!viewtext
+                                else if (chatMessage.TrimStart().StartsWith("@!viewtext "))
                                 {
-                                    SendCommand("say §cFailed §cto §cread §cfile: " + ex.Message);
+                                    try
+                                    {
+                                        int page = 0;
+                                        if (!int.TryParse(chatMessage.CommandArgument("@!viewtext"), out page))
+                                        {
+                                            page = 1;
+                                        }
+                                        string[] fileLines = File.ReadAllLines(Path.GetDirectoryName(ServerManager.ServerJarPath) + ServerManager.MinecraftServer.StartInfo.WorkingDirectory.Split('\\')[ServerManager.MinecraftServer.StartInfo.WorkingDirectory.Split('\\').Length - 1] + ".txt");
+                                        SendCommand("tellraw " + user + " [\"\",{\"text\":\"Page " + page + "/" + Math.Ceiling(fileLines.Length / 5f) + "\",\"color\":\"aqua\"}]");
+                                        for (int i = 5 * page - 5; i < 5 * page; i++)
+                                        {
+                                            try
+                                            {
+                                                SendCommand("tellraw " + user + " [\"\",{\"text\":\"" + i + 1 + ": " + fileLines[i] + "\",\"color\":\"aqua\"}]");
+                                            }
+                                            catch
+                                            {
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        SendCommand(ChatTools.Tellraw(user, TellrawColor.red, "Failed to read file: " + ex.Message));
+                                    }
                                 }
-                            }
-                            //Deletes the specefied line from the text file
-                            //Example:
-                            //@!delline 2
-                            else if (chatMessage.TrimStart().StartsWith("@!delline "))
-                            {
-                                try
+                                //Deletes the specefied line from the text file
+                                //Example:
+                                //@!delline 2
+                                else if (chatMessage.TrimStart().StartsWith("@!delline "))
                                 {
-                                    int line = Convert.ToInt32(chatMessage.Split(new string[] { "@!delline" }, StringSplitOptions.None)[1].Trim()) - 1;
-                                    string path = Path.GetDirectoryName(ServerManager.ServerJarPath) + ServerManager.MinecraftServer.StartInfo.WorkingDirectory.Split('\\')[ServerManager.MinecraftServer.StartInfo.WorkingDirectory.Split('\\').Length - 1] + ".txt";
-                                    List<string> fileLines = File.ReadAllLines(path).ToList();
-                                    fileLines.RemoveAt(line);
-                                    File.WriteAllLines(path, fileLines);
+                                    try
+                                    {
+                                        int line = Convert.ToInt32(chatMessage.CommandArgument("@!delline")) - 1;
+                                        string path = Path.GetDirectoryName(ServerManager.ServerJarPath) + ServerManager.MinecraftServer.StartInfo.WorkingDirectory.Split('\\')[ServerManager.MinecraftServer.StartInfo.WorkingDirectory.Split('\\').Length - 1] + ".txt";
+                                        List<string> fileLines = File.ReadAllLines(path).ToList();
+                                        fileLines.RemoveAt(line);
+                                        File.WriteAllLines(path, fileLines);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        SendCommand(ChatTools.Tellraw(user, TellrawColor.red, "Failed to delete line: " + ex.Message));
+                                    }
                                 }
-                                catch (Exception ex)
+                                //Shows all commands, their syntax, and their description
+                                //TODO: Allow user-made commands to have a help message
+                                //Example:
+                                //@!help
+                                //TODO: @!help import
+                                else if (chatMessage.TrimStart().StartsWith("@!help"))
                                 {
-                                    SendCommand("say §cFailed §cto §cdelete §cline: " + ex.Message);
+                                    SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, "@!import [link|filepath]: Imports a remote MCCBL File"));
+                                    SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, "@!reimport [selector]: Reimports last locally imported file (no links)"));
+                                    SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, "@!restart: Restarts the server"));
+                                    SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, "@!addtext | @!addline [text]: Adds a line of text to the server text file"));
+                                    SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, "@!viewtext [page]: Shows a page from the server text file"));
+                                    SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, "@!delline [line number]: Deletes a line of text from the server text file"));
+                                    foreach (string file in Directory.GetFileSystemEntries(ServerManager.MinecraftServer.StartInfo.WorkingDirectory + "\\commands"))
+                                    {
+                                        string firstLine = File.ReadLines(file).First();
+                                        string secondLine = File.ReadLines(file).ToArray()[1];
+                                        if (firstLine.StartsWith("@HELP") || secondLine.StartsWith("@HELP"))
+                                        {
+                                            if (firstLine.StartsWith("@SYNTAX"))
+                                            {
+                                                SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, Path.GetFileName(file).Replace(".mccbl", "") + firstLine.Substring(9) + ": " + secondLine.Substring(7)));
+                                            }
+                                            else
+                                            {
+                                                SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, Path.GetFileName(file).Replace(".mccbl", "") + ": " + firstLine.Substring(7)));
+                                            }
+                                        }
+                                        else
+                                        {
+                                            SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, Path.GetFileName(file).Replace(".mccbl", "") + ": No help information found"));
+                                        }
+                                    }
                                 }
-                            }
-                            //Shows all commands, their syntax, and their description
-                            //TODO: Allow user-made commands to have a help message
-                            //Example:
-                            //@!help
-                            //TODO: @!help import
-                            else if (chatMessage.TrimStart().StartsWith("@!help"))
-                            {
-                                SendCommand("tellraw " + user + " [\"\",{\"text\":\"@!import [link|filepath]: Imports a remote MCCBL File\",\"color\":\"yellow\"}]");
-                                SendCommand("tellraw " + user + " [\"\",{\"text\":\"@!reimport [selector]: Reimports last locally imported file (no links)\",\"color\":\"yellow\"}]");
-                                SendCommand("tellraw " + user + " [\"\",{\"text\":\"@!restart: Restarts the server\",\"color\":\"yellow\"}]");
-                                SendCommand("tellraw " + user + " [\"\",{\"text\":\"@!addtext [text]: Adds a line of text to the server text file\",\"color\":\"yellow\"}]");
-                                SendCommand("tellraw " + user + " [\"\",{\"text\":\"@!viewtext [page]: Shows a page from the server text file\",\"color\":\"yellow\"}]");
-                                SendCommand("tellraw " + user + " [\"\",{\"text\":\"@!delline [line number]: Deletes a line of text from the server text file\",\"color\":\"yellow\"}]");
-                                foreach (string file in Directory.GetFileSystemEntries(ServerManager.MinecraftServer.StartInfo.WorkingDirectory + "\\commands"))
+                                //If no command was found, tell user it doesn't exist
+                                else if (!wasUserMade)
                                 {
-                                    SendCommand("tellraw " + user + " [\"\",{\"text\":\"" + Path.GetFileName(file).Replace(".mccbl", "") + "\",\"color\":\"yellow\"}]");
+                                    SendCommand(ChatTools.Tellraw(user, TellrawColor.red, "[Error] Unknown Command or Bad Syntax, Type @!help for help"));
                                 }
-                            }
-                            //If no command was found, tell user it doesn't exist
-                            else if (!wasUserMade)
-                            {
-                                SendCommand("tellraw " + user + " [\"\",{\"text\":\"[Error] Unknown Command, Type @!help for help\",\"color\":\"red\"}]");
                             }
 
                             //Add chat messages to server console window

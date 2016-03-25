@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ExtMethods
@@ -41,6 +42,11 @@ namespace ExtMethods
         public static bool IsEnabled(this ToolStripMenuItem controlToCheck)
         {
             return (controlToCheck.ForeColor == Color.White);
+        }
+
+        public static string CommandArgument(this string message, string commandText)
+        {
+            return message.Split(new string[] { commandText }, StringSplitOptions.None)[1].Trim();
         }
     }
 }

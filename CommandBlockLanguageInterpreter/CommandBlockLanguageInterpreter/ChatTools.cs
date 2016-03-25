@@ -69,5 +69,37 @@ namespace CommandBlockLanguageInterpreter
                 return command;
             }
         }
+
+        /// <summary>
+        /// Generates a tellraw command with the given options
+        /// </summary>
+        /// <param name="selector">Who will recieve the message</param>
+        /// <param name="color">The color of the message</param>
+        /// <param name="message">The message to send</param>
+        /// <returns></returns>
+        public static string Tellraw(string selector, TellrawColor color, string message)
+        {
+            return "tellraw " + selector + " [\"\",{\"text\":\"" + message + "\",\"color\":\"" + color.ToString() + "\"}]";
+        }
+    }
+
+    public enum TellrawColor
+    {
+        black,
+        dark_blue,
+        dark_green,
+        dark_aqua,
+        dark_red,
+        dark_purple,
+        gold,
+        gray,
+        dark_gray,
+        blue,
+        green,
+        aqua,
+        red,
+        light_purple,
+        yellow,
+        white
     }
 }
