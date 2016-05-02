@@ -10,7 +10,7 @@ namespace CommandBlockLanguageInterpreter
         /// Gets the username from a chat message
         /// </summary>
         /// <param name="userInput">The chat message to filter</param>
-        /// <returns></returns>
+        /// <returns>Username of a filtered command</returns>
         public static string FilterUsername(string userInput)
         {
             userInput = userInput.Trim().Substring(1).Split('>')[0];
@@ -38,7 +38,7 @@ namespace CommandBlockLanguageInterpreter
         /// Removes unnecessary information from a recieved message from the server
         /// </summary>
         /// <param name="command">The message to filter</param>
-        /// <returns></returns>
+        /// <returns>A filtered command message</returns>
         public static string FilterCommand(string command)
         {
             string[] splitString = new string[] { " [Server thread/INFO]: ", " [Server thread/WARN]: ", " [Server Shutdown Thread/INFO]: ", " [Server Watchdog/FATAL]: ", " [Server Watchdog/ERROR]: " };
@@ -73,13 +73,31 @@ namespace CommandBlockLanguageInterpreter
         /// <summary>
         /// Generates a tellraw command with the given options
         /// </summary>
-        /// <param name="selector">Who will recieve the message</param>
+        /// <param name="selector">Who will receive the message</param>
         /// <param name="color">The color of the message</param>
         /// <param name="message">The message to send</param>
-        /// <returns></returns>
+        /// <returns>A correctly formatted tellraw command</returns>
         public static string Tellraw(string selector, TellrawColor color, string message)
         {
             return "tellraw " + selector + " [\"\",{\"text\":\"" + message + "\",\"color\":\"" + color.ToString() + "\"}]";
+        }
+
+        /// <summary>
+        /// Generates a tellraw command with the given options
+        /// Concatenates all of the messages into one message
+        /// </summary>
+        /// <param name="selector">Who will receive the message</param>
+        /// <param name="colors">Colors for the corresponding messages</param>
+        /// <param name="messages">Messages to send</param>
+        /// <returns></returns>
+        public static string MultiTellraw(string selector, TellrawColor[] colors, string[] messages)
+        {
+            string command = $"tellraw {selector} [\"\"";
+            for (int i = 0; i < messages.Length; i++)
+            {
+                command += ",{\"text\":\"" + messages[i] + "\",\"color\":\"" + colors[i].ToString() + "\"}";
+            }
+            return command + "]";
         }
     }
 

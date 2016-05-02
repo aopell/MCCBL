@@ -15,6 +15,7 @@ namespace CommandBlockLanguageInterpreter
         public string FileName;
         public static string Selector;
         bool webLink;
+        public bool failed = false;
         public List<Command> commands = new List<Command>();
 
         public CBLInterpreter(MainWindow callingClass, string fileName, bool link = false, string selector = null)
@@ -83,7 +84,7 @@ namespace CommandBlockLanguageInterpreter
                         catch (Exception ex)
                         {
                             output = input;
-                            ServerManager.MinecraftServer.StandardInput.WriteLine("tellraw @a [\"\",{\"text\":\"[Error] Failed to interpret math statement: " + ex.Message + "\",\"color\":\"red\"}]");
+                            ServerManager.MinecraftServer.StandardInput.WriteLine(ChatTools.Tellraw("@a", TellrawColor.red, $"[ERROR] Failed to interpret math statement ({expression}): {ex.Message}"));
                             ServerManager.MinecraftServer.StandardInput.FlushAsync();
                         }
                     }
@@ -138,9 +139,10 @@ namespace CommandBlockLanguageInterpreter
                             //TODO: Find some way to fix this conditional problem
                             //May not be fixable in the current implementation
                             //See "Transparency2/Utilities/Conditional Issue.png"
-                            if (commands[i].CommandType == Command.Type.Conditional && new int[] { 0, 4, 5, 9, 10, 14, 15, 19, 20, 24 }.Contains(i))
+                            if (commands[loopedCommands].CommandType == Command.Type.Conditional && new int[] { 0, 4, 5, 9, 10, 14, 15, 19, 20, 24 }.Contains(i))
                             {
-                                ServerManager.MinecraftServer.StandardInput.WriteLine("/tellraw @p [\"\",{\"text\":\"[WARNING] Conditional command not supported at command " + commands[i].CommandText + "\",\"color\":\"red\"}]");
+                                ServerManager.MinecraftServer.StandardInput.WriteLine(ChatTools.Tellraw("@a", TellrawColor.red, "[WARNING] Conditional command not supported at height " + yOffset + " command index " + i));
+                                ServerManager.MinecraftServer.StandardInput.WriteLine(ChatTools.Tellraw("@a", TellrawColor.red, "[WARNING] Problem command: " + commands[loopedCommands].CommandText));
                                 ServerManager.MinecraftServer.StandardInput.Flush();
                             }
 
@@ -186,15 +188,19 @@ namespace CommandBlockLanguageInterpreter
 
                 ServerManager.MinecraftServer.StandardInput.WriteLine("execute " + Selector + " ~ ~ ~ setblock ~ ~ ~ minecraft:wall_sign 4 replace");
                 ServerManager.MinecraftServer.StandardInput.Flush();
-                ServerManager.MinecraftServer.StandardInput.WriteLine("execute " + Selector + " ~ ~ ~ blockdata ~ ~ ~ {Text1:\"[{\\\"text\\\":\\\"" + (!webLink ? FileName.Replace(".mccbl", "") : "Remote Import") + "\\\"}]\"" + ",Text2:\"[{\\\"text\\\":\\\"" + commands.Count + " Commands" + "\\\"}]\"" + ",Text3:\"[{\\\"text\\\":\\\"" + DateTime.Now.ToString("dd MMM yyyy") + "\\\"}]\"" + ",Text4:\"[{\\\"text\\\":\\\"" + DateTime.Now.ToString("hh:mm:sstt") + "\\\"}]\"}");
+                ServerManager.MinecraftServer.StandardInput.WriteLine("execute " + Selector + " ~ ~ ~ blockdata ~ ~ ~ {Text1:\"[{\\\"text\\\":\\\"" + (!webLink ? FileName.Replace(".mccbl", "") : "Remote Import") + "\\\"}]\"" + ",Text2:\"[{\\\"text\\\":\\\"" + commands.Count + " Commands" + "\\\"}]\"" + ",Text3:\"[{\\\"text\\\":\\\"" + DateTime.Now.ToString("dd MMM yyyy") + "\\\"}]\"" + ",Text4:\"[{\\\"text\\\":\\\"" + DateTime.Now.ToString("HH:mm:ss") + "\\\"}]\"}");
                 ServerManager.MinecraftServer.StandardInput.Flush();
+            }
+            else
+            {
+                failed = true;
             }
         }
 
         private string BuildCommand(Command command, int x, int y, int z, string facing, bool repeat, bool powered)
         {
-            string commandBase = String.Format("execute {0} ~ ~ ~ setblock ", Selector);
-            commandBase += String.Format("~{0} ~{1} ~{2} {4} {3} replace ", x, y, z, command.CommandType == Command.Type.Conditional ? (Convert.ToInt32(facing) + 8).ToString() : facing, command.CommandIndex == 0 ? (repeat ? "minecraft:repeating_command_block" : "minecraft:command_block") : "minecraft:chain_command_block");
+            string commandBase = string.Format("execute {0} ~ ~ ~ setblock ", Selector);
+            commandBase += string.Format("~{0} ~{1} ~{2} {4} {3} replace ", x, y, z, command.CommandType == Command.Type.Conditional ? (Convert.ToInt32(facing) + 8).ToString() : facing, command.CommandIndex == 0 ? (repeat ? "minecraft:repeating_command_block" : "minecraft:command_block") : "minecraft:chain_command_block");
             commandBase += "{Command:" + command.CommandText + (command.CommandIndex != 0 && powered ? ",auto:1b" : "") + "}";
             MainWindow.TextToAdd = commandBase;
             CallingClass.UpdateText();
