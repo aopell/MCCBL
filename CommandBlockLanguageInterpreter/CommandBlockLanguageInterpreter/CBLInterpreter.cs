@@ -69,7 +69,10 @@ namespace CommandBlockLanguageInterpreter
                 else if (line.Trim().StartsWith("#define"))
                 {
                     string key = line.Trim().Split(' ')[1];
-                    string val = line.Trim().Split(' ')[2];
+                    List<string> suffix = line.Trim().Split(' ').ToList();
+                    suffix.RemoveAt(0);
+                    suffix.RemoveAt(1);
+                    string val = string.Join(" ", suffix);
 
                     if (constants.ContainsKey(key))
                     {
