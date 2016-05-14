@@ -204,53 +204,24 @@ namespace CommandBlockLanguageInterpreter
                             bool wasUserMade = false;
                             if (chatMessage.TrimStart().StartsWith("@!"))
                             {
+                                Dictionary<string, CBLFile> CustomCommands = new Dictionary<string, CBLFile>();
 
-                                //Checks if the message matches a user-made custom command
-                                foreach (string file in Directory.GetFileSystemEntries(ServerManager.MinecraftServer.StartInfo.WorkingDirectory + "\\commands"))
+                                string cmdDir = ServerManager.MinecraftServer.StartInfo.WorkingDirectory + "\\commands";
+                                if (Directory.Exists(cmdDir))
                                 {
-                                    if (chatMessage.TrimStart().Split(' ')[0] + ".mccbl" == Path.GetFileName(file))
+                                    foreach (string file in Directory.GetFileSystemEntries(ServerManager.MinecraftServer.StartInfo.WorkingDirectory + "\\commands"))
                                     {
-                                        wasUserMade = true;
-                                        MSScriptControl.ScriptControl sc = new MSScriptControl.ScriptControl();
-                                        sc.Language = "VBScript";
-                                        string[] fileLines = File.ReadAllLines(ServerManager.MinecraftServer.StartInfo.WorkingDirectory + "\\commands\\" + Path.GetFileName(file));
-                                        foreach (string s in fileLines)
-                                        {
-                                            //Replaces {arg} with the first argument
-                                            //Replaces {user} with the person who used the command
-                                            //TODO: Add support for more arguments
-                                            string input = s.Replace("{arg}", chatMessage.Split(new string[] { chatMessage.TrimStart().Split(' ')[0] }, StringSplitOptions.None)[1].TrimStart()).Replace("{user}", user).Replace("{arg}", chatMessage.Split(new string[] { chatMessage.TrimStart().Split(' ')[0] }, StringSplitOptions.None)[1].TrimStart());
-                                            string output;
-                                            //Replaces math expressions in ([ ]) with their answers
-                                            if (input.Contains("([") && input.Contains("])"))
-                                            {
-                                                output = input;
-                                                Regex r = new Regex(@"\(\[.+?\]\)");
-                                                MatchCollection m = r.Matches(input);
-                                                try
-                                                {
-                                                    for (int i = 0; i < m.Count; i++)
-                                                    {
-                                                        object result = sc.Eval(m[i].Value.Replace("([", "").Replace("])", ""));
-                                                        output = r.Replace(output, result.ToString(), 1);
-                                                    }
-                                                }
-                                                catch (Exception ex)
-                                                {
-                                                    output = input;
-                                                    SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, $"[ERROR] Failed to interpret math ({output}): " + ex.Message));
-                                                }
-                                            }
-                                            else
-                                            {
-                                                output = input;
-                                            }
-                                            SendCommand(output);
-                                        }
-                                        break;
+                                        CustomCommands.Add(Path.GetFileName(file), new CBLInterpreter(this, Path.GetFileName(file)).Interpret(file));
                                     }
                                 }
 
+                                //Checks if the message matches a user-made custom command
+                                if (CustomCommands.ContainsKey(chatMessage.TrimStart().Split(' ')[0] + ".mccbl"))
+                                {
+                                    wasUserMade = true;
+
+                                    CustomCommands[chatMessage.TrimStart().Split(' ')[0] + ".mccbl"].Execute(user, chatMessage.TrimStart().Split(' ')[1]);
+                                }
 
                                 //Checks for premade custom commands
                                 //TODO: Allow turning these commands on or off
@@ -269,13 +240,16 @@ namespace CommandBlockLanguageInterpreter
                                     ConsoleWindow.AppendText("\nRemote Importing from " + link);
                                     SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.gold, TellrawColor.aqua, TellrawColor.gold, TellrawColor.aqua }, new string[] { "Remote Importing from ", link, " as ", "Remote Import.mccbl" }));
                                     //SendCommand("say §6Remote §6Importing §6from §b§l" + link + " §6as §b§lRemote §b§lImport.mccbl");
-                                    interpreter.Interpret(link);
-                                    ConsoleWindow.SelectionColor = Color.Cyan;
-                                    ConsoleWindow.AppendText("\nSuccessfully imported " + interpreter.commands.Count + " commands");
-                                    SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.green, TellrawColor.yellow, TellrawColor.green }, new string[] { "Successfully imported ", interpreter.commands.Count.ToString(), " commands" }));
-                                    //SendCommand("say §aSuccessfully §aimported §e§l" + interpreter.commands.Count + " §acommands");
-                                    SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "Don't forget to enable the first Command Block if necessary"));
-                                    //SendCommand("say §c§l§nDon't §c§l§nforget §cto §cenable §cthe §cfirst §cCommand §cBlock §cif §cnecessary");
+                                    CBLFile importer = interpreter.Interpret(link);
+                                    if (importer != null && importer.Import(this))
+                                    {
+                                        ConsoleWindow.SelectionColor = Color.Cyan;
+                                        ConsoleWindow.AppendText("\nSuccessfully imported " + interpreter.commands.Count + " commands");
+                                        SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.green, TellrawColor.yellow, TellrawColor.green }, new string[] { "Successfully imported ", interpreter.commands.Count.ToString(), " commands" }));
+                                        //SendCommand("say §aSuccessfully §aimported §e§l" + interpreter.commands.Count + " §acommands");
+                                        SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "Don't forget to enable the first Command Block if necessary"));
+                                        //SendCommand("say §c§l§nDon't §c§l§nforget §cto §cenable §cthe §cfirst §cCommand §cBlock §cif §cnecessary");
+                                    }
                                 }
                                 //Reimports the last locally imported file at the given selector
                                 //Does not reimport from a link
@@ -376,32 +350,12 @@ namespace CommandBlockLanguageInterpreter
                                     SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, "@!addtext | @!addline [text]: Adds a line of text to the server text file"));
                                     SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, "@!viewtext [page]: Shows a page from the server text file"));
                                     SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, "@!delline [line number]: Deletes a line of text from the server text file"));
-                                    foreach (string file in Directory.GetFileSystemEntries(ServerManager.MinecraftServer.StartInfo.WorkingDirectory + "\\commands"))
+
+                                    foreach (CBLFile customCommand in CustomCommands.Values)
                                     {
-                                        try
-                                        {
-                                            string firstLine = File.ReadLines(file).First();
-                                            string secondLine = File.ReadLines(file).ToArray()[1];
-                                            if (firstLine.StartsWith("@HELP") || secondLine.StartsWith("@HELP"))
-                                            {
-                                                if (firstLine.StartsWith("@SYNTAX"))
-                                                {
-                                                    SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, Path.GetFileName(file).Replace(".mccbl", "") + firstLine.Substring(9) + ": " + secondLine.Substring(7)));
-                                                }
-                                                else
-                                                {
-                                                    SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, Path.GetFileName(file).Replace(".mccbl", "") + ": " + firstLine.Substring(7)));
-                                                }
-                                            }
-                                            else
-                                            {
-                                                SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, Path.GetFileName(file).Replace(".mccbl", "") + ": No help information found"));
-                                            }
-                                        }
-                                        catch
-                                        {
-                                            SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, Path.GetFileName(file).Replace(".mccbl", "") + ": No help information found"));
-                                        }
+                                        string helpText = customCommand.Properties.ContainsKey("HELP") ? customCommand.Properties["HELP"] : "No help text found";
+                                        string syntax = customCommand.Properties.ContainsKey("SYNTAX") ? customCommand.Properties["SYNTAX"] : "";
+                                        SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, customCommand.FileName.Replace(".mccbl", "") + " " + syntax + ": " + helpText));
                                     }
                                 }
                                 //If no command was found, tell user it doesn't exist
@@ -568,10 +522,10 @@ namespace CommandBlockLanguageInterpreter
                     ConsoleWindow.AppendText("Importing " + ChooseFileDialog.SafeFileName);
                     SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.gold, TellrawColor.aqua }, new string[] { "Importing ", ChooseFileDialog.SafeFileName }));
                     //SendCommand("say §6Importing §b§l" + ChooseFileDialog.SafeFileName);
-                    interpreter.Interpret(ChooseFileDialog.FileName);
-                    SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.green, TellrawColor.yellow, TellrawColor.green }, new string[] { "Successfully imported ", interpreter.commands.Count.ToString(), " commands" }));
-                    if (!interpreter.failed)
+                    CBLFile importer = interpreter.Interpret(ChooseFileDialog.FileName);
+                    if (importer != null && importer.Import(this))
                     {
+                        SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.green, TellrawColor.yellow, TellrawColor.green }, new string[] { "Successfully imported ", interpreter.commands.Count.ToString(), " commands" }));
                         ConsoleWindow.AppendText("Successfully imported " + interpreter.commands.Count + " commands");
                         SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "Don't forget to enable the first Command Block if necessary"));
                         //SendCommand("say §aSuccessfully §aimported §e§l" + interpreter.commands.Count + " §acommands");
@@ -596,12 +550,19 @@ namespace CommandBlockLanguageInterpreter
                     ConsoleWindow.AppendText("Reimporting " + ChooseFileDialog.SafeFileName);
                     SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.gold, TellrawColor.aqua }, new string[] { "Reimporting ", ChooseFileDialog.SafeFileName }));
                     //SendCommand("say §6Reimporting §b§l" + ChooseFileDialog.SafeFileName);
-                    interpreter.Interpret(ChooseFileDialog.FileName);
-                    ConsoleWindow.AppendText("Successfully imported " + interpreter.commands.Count + " commands");
-                    SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.green, TellrawColor.yellow, TellrawColor.green }, new string[] { "Successfully imported ", interpreter.commands.Count.ToString(), " commands" }));
-                    SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "Don't forget to enable the first Command Block if necessary"));
-                    //SendCommand("say §aSuccessfully §areimported §e§l" + interpreter.commands.Count + " §acommands");
-                    //SendCommand("say §c§l§nDon't §c§l§nforget §cto §cenable §cthe §cfirst §cCommand §cBlock §cif §cnecessary");
+                    CBLFile importer = interpreter.Interpret(ChooseFileDialog.FileName);
+                    if (importer != null && importer.Import(this))
+                    {
+                        ConsoleWindow.AppendText("Successfully imported " + interpreter.commands.Count + " commands");
+                        SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.green, TellrawColor.yellow, TellrawColor.green }, new string[] { "Successfully imported ", interpreter.commands.Count.ToString(), " commands" }));
+                        SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "Don't forget to enable the first Command Block if necessary"));
+                        //SendCommand("say §aSuccessfully §areimported §e§l" + interpreter.commands.Count + " §acommands");
+                        //SendCommand("say §c§l§nDon't §c§l§nforget §cto §cenable §cthe §cfirst §cCommand §cBlock §cif §cnecessary");
+                    }
+                    else
+                    {
+                        SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "[ERROR] Reimport was cancelled or failed"));
+                    }
                 }
                 else
                 {

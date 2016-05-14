@@ -170,7 +170,7 @@
             this.textBox5.TabIndex = 14;
             this.textBox5.Text = "@a[score_importCommands_min=1]";
             // 
-            // Form2
+            // ScriptLoader
             // 
             this.AcceptButton = this.button1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -192,7 +192,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form2";
+            this.Name = "ScriptLoader";
             this.Text = "Script Info";
             this.Load += new System.EventHandler(this.Form2_Load);
             this.ResumeLayout(false);

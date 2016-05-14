@@ -22,7 +22,8 @@ namespace CommandBlockLanguageInterpreter
         public enum Type
         {
             Normal,
-            Conditional
+            Conditional,
+            RepeatingConditional
         }
     }
 }

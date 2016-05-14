@@ -19,7 +19,7 @@
     <AssemblyVersionSettings>YearStamp.MonthStamp.DayStamp.Increment</AssemblyVersionSettings>
     <AssemblyFileVersionSettings>YearStamp.MonthStamp.DayStamp.Increment</AssemblyFileVersionSettings>
     <AssemblyInfoVersionSettings>YearStamp.MonthStamp.DayStamp.Increment</AssemblyInfoVersionSettings>
-    <AssemblyVersion>2016.5.2.134</AssemblyVersion>
+    <AssemblyVersion>2016.5.14.136</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -64,6 +64,7 @@
     <Compile Include="AboutDialog.Designer.cs">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="CBLFile.cs" />
     <Compile Include="ChatTools.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="ExtensionMethods.cs" />

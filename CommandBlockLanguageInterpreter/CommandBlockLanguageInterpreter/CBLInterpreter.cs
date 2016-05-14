@@ -11,22 +11,19 @@ namespace CommandBlockLanguageInterpreter
     public class CBLInterpreter
     {
         public string TextToAdd = "";
-        public MainWindow CallingClass;
         public string FileName;
         public static string Selector;
         bool webLink;
-        public bool failed = false;
         public List<Command> commands = new List<Command>();
 
         public CBLInterpreter(MainWindow callingClass, string fileName, bool link = false, string selector = null)
         {
-            CallingClass = callingClass;
             FileName = fileName;
             webLink = link;
             Selector = selector;
         }
 
-        public void Interpret(string filePath)
+        public CBLFile Interpret(string filePath)
         {
             int totalCommands = 0;
             string[] fileLines = new string[] { };
@@ -49,19 +46,42 @@ namespace CommandBlockLanguageInterpreter
                     }
                     catch
                     {
-                        return;
+                        return null;
                     }
                 }
             }
-            bool powered = false;
-            bool repeat = false;
-            int yOffset = 0;
+
             MSScriptControl.ScriptControl sc = new MSScriptControl.ScriptControl();
             sc.Language = "VBScript";
 
+            Dictionary<string, string> constants = new Dictionary<string, string>();
+            Dictionary<string, string> atTags = new Dictionary<string, string>();
+
             foreach (string line in fileLines)
             {
-                if (!line.Trim().StartsWith("//") && !line.Trim().StartsWith("@") && !line.Trim().StartsWith("::") && !line.Trim().StartsWith(";;") && line.Trim() != "")
+                if (line.Trim().StartsWith("@") && line.Trim()[1] != '!')
+                {
+                    string key = line.Trim().Split(' ')[0].Substring(1);
+                    string val = line.Trim().Split(' ')[1];
+
+                    atTags.Add(key, val);
+                }
+                else if (line.Trim().StartsWith("#define"))
+                {
+                    string key = line.Trim().Split(' ')[1];
+                    string val = line.Trim().Split(' ')[2];
+
+                    if (constants.ContainsKey(key))
+                    {
+                        constants.Remove(key);
+                        constants.Add(key, val);
+                    }
+                    else
+                    {
+                        constants.Add(key, val);
+                    }
+                }
+                else if (!line.Trim().StartsWith("//") && !line.Trim().StartsWith("@") && !line.Trim().StartsWith("::") && !line.Trim().StartsWith(";;") && line.Trim() != "")
                 {
                     totalCommands++;
 
@@ -93,7 +113,19 @@ namespace CommandBlockLanguageInterpreter
                         output = input;
                     }
 
-                    if (line.Trim().StartsWith("?"))
+                    foreach (string constant in constants.Keys)
+                    {
+                        if (output.Contains("#" + constant + "#"))
+                        {
+                            output.Replace("#" + constant + "#", constants[constant]);
+                        }
+                    }
+
+                    if (line.Trim().StartsWith("??"))
+                    {
+                        commands.Add(new Command(output.Trim().Substring(2).Replace("@!", ""), Command.Type.RepeatingConditional, commands.Count));
+                    }
+                    else if (line.Trim().StartsWith("?"))
                     {
                         commands.Add(new Command(output.Trim().Substring(1).Replace("@!", ""), Command.Type.Conditional, commands.Count));
                     }
@@ -104,107 +136,8 @@ namespace CommandBlockLanguageInterpreter
                 }
             }
 
-            string fileInformation = "";
-            foreach (string l in fileLines)
-            {
-                fileInformation += "\n" + l;
-            }
 
-            if (Selector != null || webLink || new ScriptLoader(FileName, fileLines, commands).ShowDialog() == System.Windows.Forms.DialogResult.Yes)
-            {
-                if (fileLines[0].Contains("REPEAT"))
-                {
-                    repeat = true;
-                }
-                else if (fileLines[0].Contains("ONCE"))
-                {
-                    repeat = false;
-                }
-                if (fileLines[1].Contains("ON"))
-                {
-                    powered = true;
-                }
-                else if (fileLines[1].Contains("OFF"))
-                {
-                    powered = false;
-                }
-
-                int loopedCommands = 0;
-                while (loopedCommands < commands.Count)
-                {
-                    for (int i = 0; i < 25; i++)
-                    {
-                        if (commands.Count != loopedCommands)
-                        {
-                            //TODO: Find some way to fix this conditional problem
-                            //May not be fixable in the current implementation
-                            //See "Transparency2/Utilities/Conditional Issue.png"
-                            if (commands[loopedCommands].CommandType == Command.Type.Conditional && new int[] { 0, 4, 5, 9, 10, 14, 15, 19, 20, 24 }.Contains(i))
-                            {
-                                ServerManager.MinecraftServer.StandardInput.WriteLine(ChatTools.Tellraw("@a", TellrawColor.red, "[WARNING] Conditional command not supported at height " + yOffset + " command index " + i));
-                                ServerManager.MinecraftServer.StandardInput.WriteLine(ChatTools.Tellraw("@a", TellrawColor.red, "[WARNING] Problem command: " + commands[loopedCommands].CommandText));
-                                ServerManager.MinecraftServer.StandardInput.Flush();
-                            }
-
-                            //UGLY IF STATEMENTS
-                            if (yOffset % 2 == 0)
-                            {
-                                string commandToSend = "";
-                                if (i >= 0 && i < 4) { commandToSend = BuildCommand(commands[loopedCommands], i + 1, yOffset, 0, "5", repeat, powered); }
-                                else if (i == 4) { commandToSend = BuildCommand(commands[loopedCommands], 5, yOffset, 0, "3", repeat, powered); }
-                                else if (i > 4 && i < 9) { commandToSend = BuildCommand(commands[loopedCommands], 10 - i, yOffset, 1, "4", repeat, powered); }
-                                else if (i == 9) { commandToSend = BuildCommand(commands[loopedCommands], 1, yOffset, 1, "3", repeat, powered); }
-                                else if (i > 9 && i < 14) { commandToSend = BuildCommand(commands[loopedCommands], i - 9, yOffset, 2, "5", repeat, powered); }
-                                else if (i == 14) { commandToSend = BuildCommand(commands[loopedCommands], 5, yOffset, 2, "3", repeat, powered); }
-                                else if (i > 14 && i < 19) { commandToSend = BuildCommand(commands[loopedCommands], 20 - i, yOffset, 3, "4", repeat, powered); }
-                                else if (i == 19) { commandToSend = BuildCommand(commands[loopedCommands], 1, yOffset, 3, "3", repeat, powered); }
-                                else if (i > 19 && i < 24) { commandToSend = BuildCommand(commands[loopedCommands], i - 19, yOffset, 4, "5", repeat, powered); }
-                                else if (i == 24) { commandToSend = BuildCommand(commands[loopedCommands], 5, yOffset, 4, "1", repeat, powered); }
-                                ServerManager.MinecraftServer.StandardInput.WriteLine(commandToSend);
-                                ServerManager.MinecraftServer.StandardInput.Flush();
-                            }
-                            //0: down -y 1: up +y 2: north -z 3: south +z 4: west -x 5: east +x
-                            else
-                            {
-                                string commandToSend = "";
-                                if (i >= 0 && i < 4) { commandToSend = BuildCommand(commands[loopedCommands], 5 - i, yOffset, 4, "4", repeat, powered); }
-                                else if (i == 4) { commandToSend = BuildCommand(commands[loopedCommands], 1, yOffset, 4, "2", repeat, powered); }
-                                else if (i > 4 && i < 9) { commandToSend = BuildCommand(commands[loopedCommands], i - 4, yOffset, 3, "5", repeat, powered); }
-                                else if (i == 9) { commandToSend = BuildCommand(commands[loopedCommands], 5, yOffset, 3, "2", repeat, powered); }
-                                else if (i > 9 && i < 14) { commandToSend = BuildCommand(commands[loopedCommands], 15 - i, yOffset, 2, "4", repeat, powered); }
-                                else if (i == 14) { commandToSend = BuildCommand(commands[loopedCommands], 1, yOffset, 2, "2", repeat, powered); }
-                                else if (i > 14 && i < 19) { commandToSend = BuildCommand(commands[loopedCommands], i - 14, yOffset, 1, "5", repeat, powered); }
-                                else if (i == 19) { commandToSend = BuildCommand(commands[loopedCommands], 5, yOffset, 1, "2", repeat, powered); }
-                                else if (i > 19 && i < 24) { commandToSend = BuildCommand(commands[loopedCommands], 25 - i, yOffset, 0, "4", repeat, powered); }
-                                else if (i == 24) { commandToSend = BuildCommand(commands[loopedCommands], 1, yOffset, 0, "1", repeat, powered); }
-                                ServerManager.MinecraftServer.StandardInput.WriteLine(commandToSend);
-                                ServerManager.MinecraftServer.StandardInput.Flush();
-                            }
-                            loopedCommands++;
-                        }
-                    }
-                    yOffset++;
-                }
-
-                ServerManager.MinecraftServer.StandardInput.WriteLine("execute " + Selector + " ~ ~ ~ setblock ~ ~ ~ minecraft:wall_sign 4 replace");
-                ServerManager.MinecraftServer.StandardInput.Flush();
-                ServerManager.MinecraftServer.StandardInput.WriteLine("execute " + Selector + " ~ ~ ~ blockdata ~ ~ ~ {Text1:\"[{\\\"text\\\":\\\"" + (!webLink ? FileName.Replace(".mccbl", "") : "Remote Import") + "\\\"}]\"" + ",Text2:\"[{\\\"text\\\":\\\"" + commands.Count + " Commands" + "\\\"}]\"" + ",Text3:\"[{\\\"text\\\":\\\"" + DateTime.Now.ToString("dd MMM yyyy") + "\\\"}]\"" + ",Text4:\"[{\\\"text\\\":\\\"" + DateTime.Now.ToString("HH:mm:ss") + "\\\"}]\"}");
-                ServerManager.MinecraftServer.StandardInput.Flush();
-            }
-            else
-            {
-                failed = true;
-            }
-        }
-
-        private string BuildCommand(Command command, int x, int y, int z, string facing, bool repeat, bool powered)
-        {
-            string commandBase = string.Format("execute {0} ~ ~ ~ setblock ", Selector);
-            commandBase += string.Format("~{0} ~{1} ~{2} {4} {3} replace ", x, y, z, command.CommandType == Command.Type.Conditional ? (Convert.ToInt32(facing) + 8).ToString() : facing, command.CommandIndex == 0 ? (repeat ? "minecraft:repeating_command_block" : "minecraft:command_block") : "minecraft:chain_command_block");
-            commandBase += "{Command:" + command.CommandText + (command.CommandIndex != 0 && powered ? ",auto:1b" : "") + "}";
-            MainWindow.TextToAdd = commandBase;
-            CallingClass.UpdateText();
-            return commandBase;
+            return new CBLFile(commands, atTags, FileName, fileLines, Selector, webLink);
         }
     }
 }

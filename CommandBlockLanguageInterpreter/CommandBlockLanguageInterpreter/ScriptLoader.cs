@@ -12,15 +12,15 @@ namespace CommandBlockLanguageInterpreter
 {
     public partial class ScriptLoader : Form
     {
-        public ScriptLoader(string filename, string[] filelines, List<Command> commands)
+        public ScriptLoader(string filename, string[] filelines, List<Command> commands, Dictionary<string, string> atTags)
         {
             InitializeComponent();
             try
             {
                 textBox4.Text = filename;
-                textBox1.Text = filelines[2].Replace("@VERSION ", "");
-                textBox2.Text = filelines[0].Replace("@TYPE ", "");
-                textBox3.Text = filelines[1].Replace("@CHAIN ", "").Replace("ON", "Always Active").Replace("OFF", "Needs Redstone");
+                textBox1.Text = atTags.ContainsKey("VERSION") ? atTags["VERSION"] : "No Version Supplied";
+                textBox2.Text = atTags.ContainsKey("TYPE") ? atTags["TYPE"].Replace("REPEAT", "Repeating").Replace("ONCE", "Not Repeating") : "Default: Not Repeating";
+                textBox3.Text = atTags.ContainsKey("CHAIN") ? atTags["CHAIN"].Replace("ON", "Always Active").Replace("OFF", "Require Redstone") : "Default: Always Active";
                 foreach (Command c in commands)
                 {
                     richTextBox1.AppendText(string.Format("\r\n{0}: {1}", c.CommandIndex, c.CommandText).Trim());
