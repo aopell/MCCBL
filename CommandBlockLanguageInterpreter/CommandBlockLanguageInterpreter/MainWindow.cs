@@ -741,5 +741,18 @@ namespace CommandBlockLanguageInterpreter
             //(new ServerSettingsWindow()).Show();
             MessageBox.Show("Not Yet Implemented - Working on it!");
         }
+
+        private void listBox1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                PlayerControls pc = new PlayerControls(listBox1.SelectedItem.ToString(), this);
+                pc.ShowDialog();
+            }
+            catch
+            {
+
+            }
+        }
     }
 }

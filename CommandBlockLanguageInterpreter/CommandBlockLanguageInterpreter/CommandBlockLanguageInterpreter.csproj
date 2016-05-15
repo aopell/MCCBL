@@ -19,7 +19,7 @@
     <AssemblyVersionSettings>YearStamp.MonthStamp.DayStamp.Increment</AssemblyVersionSettings>
     <AssemblyFileVersionSettings>YearStamp.MonthStamp.DayStamp.Increment</AssemblyFileVersionSettings>
     <AssemblyInfoVersionSettings>YearStamp.MonthStamp.DayStamp.Increment</AssemblyInfoVersionSettings>
-    <AssemblyVersion>2016.5.15.148</AssemblyVersion>
+    <AssemblyVersion>2016.5.15.152</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -75,6 +75,12 @@
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="CBLInterpreter.cs" />
+    <Compile Include="PlayerControls.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlayerControls.Designer.cs">
+      <DependentUpon>PlayerControls.cs</DependentUpon>
+    </Compile>
     <Compile Include="ScriptLoader.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +108,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlayerControls.resx">
+      <DependentUpon>PlayerControls.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ScriptLoader.resx">
       <DependentUpon>ScriptLoader.cs</DependentUpon>
