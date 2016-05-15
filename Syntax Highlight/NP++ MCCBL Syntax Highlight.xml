@@ -53,7 +53,7 @@
             <WordsStyle name="FOLDER IN COMMENT" fgColor="C0C0C0" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
             <WordsStyle name="DELIMITERS1" fgColor="0080FF" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="31" />
             <WordsStyle name="DELIMITERS2" fgColor="808000" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="31" />
-            <WordsStyle name="DELIMITERS3" fgColor="00FF40" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="31" />
+            <WordsStyle name="DELIMITERS3" fgColor="00FF40" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
             <WordsStyle name="DELIMITERS4" fgColor="00A4A4" bgColor="FFFFFF" fontName="Courier New" fontStyle="0" fontSize="9" nesting="117440543" />
             <WordsStyle name="DELIMITERS5" fgColor="FF0000" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
             <WordsStyle name="DELIMITERS6" fgColor="0080FF" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="255" />
