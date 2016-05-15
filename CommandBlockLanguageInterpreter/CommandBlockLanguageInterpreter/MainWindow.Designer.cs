@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.CommandInput = new System.Windows.Forms.TextBox();
             this.SendCommandButton = new System.Windows.Forms.Button();
@@ -62,31 +63,43 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.aToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.serverManagerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.MainWindowToolStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.serverManagerBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // CommandInput
             // 
             this.CommandInput.BackColor = System.Drawing.Color.Black;
-            this.CommandInput.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CommandInput.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.CommandInput.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.CommandInput.ForeColor = System.Drawing.Color.White;
-            this.CommandInput.Location = new System.Drawing.Point(12, 396);
+            this.CommandInput.Location = new System.Drawing.Point(105, 393);
             this.CommandInput.Name = "CommandInput";
-            this.CommandInput.Size = new System.Drawing.Size(614, 22);
+            this.CommandInput.Size = new System.Drawing.Size(595, 20);
             this.CommandInput.TabIndex = 3;
             this.CommandInput.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CommandInput_KeyUp);
             // 
             // SendCommandButton
             // 
-            this.SendCommandButton.BackColor = System.Drawing.Color.Black;
-            this.SendCommandButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SendCommandButton.BackColor = System.Drawing.Color.DarkGray;
+            this.SendCommandButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.SendCommandButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.SendCommandButton.FlatAppearance.BorderSize = 0;
+            this.SendCommandButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
+            this.SendCommandButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGray;
+            this.SendCommandButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SendCommandButton.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.SendCommandButton.ForeColor = System.Drawing.Color.White;
-            this.SendCommandButton.Location = new System.Drawing.Point(625, 395);
+            this.SendCommandButton.Location = new System.Drawing.Point(703, 393);
+            this.SendCommandButton.Margin = new System.Windows.Forms.Padding(0);
             this.SendCommandButton.Name = "SendCommandButton";
-            this.SendCommandButton.Size = new System.Drawing.Size(36, 21);
+            this.SendCommandButton.Size = new System.Drawing.Size(41, 20);
             this.SendCommandButton.TabIndex = 4;
-            this.SendCommandButton.Text = "OK";
-            this.SendCommandButton.UseVisualStyleBackColor = false;
+            this.SendCommandButton.Text = "Run";
+            this.SendCommandButton.UseVisualStyleBackColor = true;
             this.SendCommandButton.Click += new System.EventHandler(this.SendCommandButton_Click);
             // 
             // ChooseFileDialog
@@ -97,18 +110,21 @@
             // ConsoleWindow
             // 
             this.ConsoleWindow.BackColor = System.Drawing.Color.Black;
-            this.ConsoleWindow.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConsoleWindow.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ConsoleWindow.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.ConsoleWindow.ForeColor = System.Drawing.Color.White;
-            this.ConsoleWindow.Location = new System.Drawing.Point(12, 27);
+            this.ConsoleWindow.Location = new System.Drawing.Point(105, 12);
             this.ConsoleWindow.Name = "ConsoleWindow";
             this.ConsoleWindow.ReadOnly = true;
-            this.ConsoleWindow.Size = new System.Drawing.Size(649, 363);
+            this.ConsoleWindow.Size = new System.Drawing.Size(639, 375);
             this.ConsoleWindow.TabIndex = 5;
             this.ConsoleWindow.Text = "";
             // 
             // MainWindowToolStrip
             // 
-            this.MainWindowToolStrip.BackColor = System.Drawing.Color.Gray;
+            this.MainWindowToolStrip.AutoSize = false;
+            this.MainWindowToolStrip.BackColor = System.Drawing.Color.Transparent;
+            this.MainWindowToolStrip.Dock = System.Windows.Forms.DockStyle.Left;
             this.MainWindowToolStrip.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainWindowToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.serverToolStripMenuItem,
@@ -117,13 +133,14 @@
             this.helpToolStripMenuItem});
             this.MainWindowToolStrip.Location = new System.Drawing.Point(0, 0);
             this.MainWindowToolStrip.Name = "MainWindowToolStrip";
-            this.MainWindowToolStrip.Size = new System.Drawing.Size(673, 24);
+            this.MainWindowToolStrip.Size = new System.Drawing.Size(104, 425);
             this.MainWindowToolStrip.TabIndex = 6;
             this.MainWindowToolStrip.Text = "menuStrip1";
             // 
             // serverToolStripMenuItem
             // 
-            this.serverToolStripMenuItem.BackColor = System.Drawing.Color.Gray;
+            this.serverToolStripMenuItem.AutoSize = false;
+            this.serverToolStripMenuItem.BackColor = System.Drawing.Color.DarkGray;
             this.serverToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startToolStripMenuItem,
             this.stopToolStripMenuItem,
@@ -131,9 +148,11 @@
             this.switchToolStripMenuItem});
             this.serverToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.serverToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.serverToolStripMenuItem.Margin = new System.Windows.Forms.Padding(0, 10, 0, 0);
             this.serverToolStripMenuItem.Name = "serverToolStripMenuItem";
-            this.serverToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.serverToolStripMenuItem.Size = new System.Drawing.Size(95, 30);
             this.serverToolStripMenuItem.Text = "Server";
+            this.serverToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // startToolStripMenuItem
             // 
@@ -180,7 +199,8 @@
             // 
             // toolsToolStripMenuItem
             // 
-            this.toolsToolStripMenuItem.BackColor = System.Drawing.Color.Gray;
+            this.toolsToolStripMenuItem.AutoSize = false;
+            this.toolsToolStripMenuItem.BackColor = System.Drawing.Color.DarkGray;
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.operatorsMenuItem,
             this.propertiesMenuItem,
@@ -189,10 +209,12 @@
             this.toolsToolStripMenuItem.Enabled = false;
             this.toolsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.toolsToolStripMenuItem.Margin = new System.Windows.Forms.Padding(0, 30, 0, 0);
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(95, 30);
             this.toolsToolStripMenuItem.Tag = "";
             this.toolsToolStripMenuItem.Text = "Tools";
+            this.toolsToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // operatorsMenuItem
             // 
@@ -233,7 +255,8 @@
             // 
             // optionsToolStripMenuItem
             // 
-            this.optionsToolStripMenuItem.BackColor = System.Drawing.Color.Gray;
+            this.optionsToolStripMenuItem.AutoSize = false;
+            this.optionsToolStripMenuItem.BackColor = System.Drawing.Color.DarkGray;
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.serverOptionsToolStripMenuItem,
             this.minRamHelpMenuItem,
@@ -243,9 +266,11 @@
             this.maxRAM});
             this.optionsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optionsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.optionsToolStripMenuItem.Margin = new System.Windows.Forms.Padding(0, 30, 0, 0);
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(95, 30);
             this.optionsToolStripMenuItem.Text = "Options";
+            this.optionsToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // serverOptionsToolStripMenuItem
             // 
@@ -375,15 +400,18 @@
             // 
             // helpToolStripMenuItem
             // 
-            this.helpToolStripMenuItem.BackColor = System.Drawing.Color.Gray;
+            this.helpToolStripMenuItem.AutoSize = false;
+            this.helpToolStripMenuItem.BackColor = System.Drawing.Color.DarkGray;
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem,
             this.helpToolStripMenuItem1});
             this.helpToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.helpToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.helpToolStripMenuItem.Margin = new System.Windows.Forms.Padding(0, 30, 0, 0);
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(95, 30);
             this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // aboutToolStripMenuItem
             // 
@@ -403,13 +431,38 @@
             this.helpToolStripMenuItem1.Text = "Help";
             this.helpToolStripMenuItem1.Click += new System.EventHandler(this.helpToolStripMenuItem1_Click);
             // 
+            // aToolStripMenuItem
+            // 
+            this.aToolStripMenuItem.Name = "aToolStripMenuItem";
+            this.aToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aToolStripMenuItem.Text = "a";
+            // 
+            // listBox1
+            // 
+            this.listBox1.BackColor = System.Drawing.Color.DimGray;
+            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBox1.ForeColor = System.Drawing.Color.White;
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 15;
+            this.listBox1.Location = new System.Drawing.Point(5, 233);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.listBox1.Size = new System.Drawing.Size(95, 180);
+            this.listBox1.TabIndex = 7;
+            // 
+            // serverManagerBindingSource
+            // 
+            this.serverManagerBindingSource.DataSource = typeof(CommandBlockLanguageInterpreter.ServerManager);
+            // 
             // MainWindow
             // 
             this.AcceptButton = this.SendCommandButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Gray;
-            this.ClientSize = new System.Drawing.Size(673, 422);
+            this.BackColor = System.Drawing.Color.DimGray;
+            this.ClientSize = new System.Drawing.Size(756, 425);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.ConsoleWindow);
             this.Controls.Add(this.SendCommandButton);
             this.Controls.Add(this.CommandInput);
@@ -424,6 +477,7 @@
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.MainWindowToolStrip.ResumeLayout(false);
             this.MainWindowToolStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.serverManagerBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -463,6 +517,8 @@
         private System.Windows.Forms.ToolStripMenuItem for512MBType512MToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem serverOptionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aToolStripMenuItem;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.BindingSource serverManagerBindingSource;
     }
 }
-

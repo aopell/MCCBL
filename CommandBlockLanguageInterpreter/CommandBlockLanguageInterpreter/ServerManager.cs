@@ -19,6 +19,7 @@ namespace CommandBlockLanguageInterpreter
         public static MainWindow ConsoleWindow = null;
         public static bool Restart = false;
         public static bool Switch = false;
+        public static List<string> LoggedInPlayers = new List<string>();
 
         public static void StartServer(string fileName, MainWindow mainWindow)
         {

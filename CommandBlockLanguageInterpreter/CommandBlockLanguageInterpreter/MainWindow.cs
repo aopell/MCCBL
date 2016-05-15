@@ -54,7 +54,7 @@ namespace CommandBlockLanguageInterpreter
 
                 //Server starts here
                 ServerManager.StartServer(ChooseFileDialog.FileName, this);
-
+                listBox1.Items.Clear();
                 startToolStripMenuItem.Disable();
                 toolsToolStripMenuItem.Enabled = true;
                 importCommandBlockLanguageFileToolStripMenuItem.Enable();
@@ -78,6 +78,8 @@ namespace CommandBlockLanguageInterpreter
                     ConsoleWindow.SelectionColor = Color.Red;
                     ConsoleWindow.AppendText("\r\nStopped");
                     ConsoleWindow.SelectionColor = Color.White;
+
+                    listBox1.Items.Clear();
 
                     startToolStripMenuItem.Enable();
                     toolsToolStripMenuItem.Enabled = false;
@@ -132,19 +134,17 @@ namespace CommandBlockLanguageInterpreter
                         if (ServerManager.LastRecievedMessage.ContainsAny(new string[] { "logged in with entity id", "UUID of player", "left the game", "lost connection:", "joined the game" }))
                         {
                             ConsoleWindow.SelectionColor = Color.Yellow;
-                            if (ServerManager.LastRecievedMessage.Contains(" joined the game"))
+                            if (ServerManager.LastRecievedMessage.Contains("logged in with entity id"))
                             {
                                 string timeString = DateTime.Now.ToString("M/d HH:mm:ss");
                                 ServerManager.ChatHistory.Add(ChatTools.FilterCommand(string.Format("\r\n[{0}]: {1}", timeString, ChatTools.FilterCommand(ServerManager.LastRecievedMessage))));
-                                try
+
+                                string player = ChatTools.FilterCommand(ServerManager.LastRecievedMessage).Split('[')[0].Trim();
+                                ServerManager.LoggedInPlayers.Add(player);
+                                listBox1.Items.Add(player);
+
+                                if (File.Exists(ServerManager.MinecraftServer.StartInfo.WorkingDirectory + "\\motd.mccbl"))
                                 {
-                                    //MOTD Beta
-                                    //Checks for the motd.mccbl file in the server directory and runs the file
-                                    //Also shows 10 most recent chat messages
-                                    //TODO: Remove motd scoreboard requirement
-                                    //TODO: Allow turning recent chat / motd On/Off
-                                    //TODO: Interpret motd like all other MCCBL files to allow comments, math, etc.
-                                    string[] motdCommands = File.ReadAllLines(ServerManager.MinecraftServer.StartInfo.WorkingDirectory + "\\motd.mccbl");
                                     SendCommand(ChatTools.Tellraw("@a[score_motd_min=1]", TellrawColor.white, "Recent Chat History:"));
                                     for (int i = 11; i > 0; i--)
                                     {
@@ -158,20 +158,18 @@ namespace CommandBlockLanguageInterpreter
                                         }
                                     }
                                     SendCommand(ChatTools.Tellraw("@a[score_motd_min=1]", TellrawColor.white, "--------------------"));
-                                    foreach (string command in motdCommands)
-                                    {
-                                        SendCommand(command);
-                                    }
-                                }
-                                catch (FileNotFoundException)
-                                {
-
+                                    CBLFile motdFile = new CBLInterpreter(this, "MOTD").Interpret(ServerManager.MinecraftServer.StartInfo.WorkingDirectory + "\\motd.mccbl");
+                                    motdFile.Execute(player, "");
                                 }
                             }
-                            else if (ServerManager.LastRecievedMessage.Contains("left the game"))
+                            else if (ServerManager.LastRecievedMessage.Contains("lost connection"))
                             {
                                 string timeString = DateTime.Now.ToString("M/d HH:mm:ss");
                                 ServerManager.ChatHistory.Add(ChatTools.FilterCommand(string.Format("\r\n[{0}]: {1}", timeString, ChatTools.FilterCommand(ServerManager.LastRecievedMessage).Trim())));
+
+                                string player = ChatTools.FilterCommand(ServerManager.LastRecievedMessage).Split(new string[] { "lost connection" }, StringSplitOptions.None)[0].Trim();
+                                ServerManager.LoggedInPlayers.Remove(player);
+                                listBox1.Items.Remove(player);
                             }
                         }
                         //Checks for events that make green text
