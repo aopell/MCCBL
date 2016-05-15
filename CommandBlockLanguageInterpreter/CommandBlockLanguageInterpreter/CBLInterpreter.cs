@@ -62,17 +62,14 @@ namespace CommandBlockLanguageInterpreter
                 if (line.Trim().StartsWith("@") && line.Trim()[1] != '!')
                 {
                     string key = line.Trim().Split(' ')[0].Substring(1);
-                    string val = line.Trim().Split(' ')[1];
+                    string val = string.Join(" ", line.Trim().Split(' ').Skip(1));
 
                     atTags.Add(key, val);
                 }
                 else if (line.Trim().StartsWith("#define"))
                 {
                     string key = line.Trim().Split(' ')[1];
-                    List<string> suffix = line.Trim().Split(' ').ToList();
-                    suffix.RemoveAt(0);
-                    suffix.RemoveAt(1);
-                    string val = string.Join(" ", suffix);
+                    string val = string.Join(" ", line.Trim().Split(' ').Skip(2));
 
                     if (constants.ContainsKey(key))
                     {
@@ -107,7 +104,7 @@ namespace CommandBlockLanguageInterpreter
                         catch (Exception ex)
                         {
                             output = input;
-                            ServerManager.MinecraftServer.StandardInput.WriteLine(ChatTools.Tellraw("@a", TellrawColor.red, $"[ERROR] Failed to interpret math statement ({expression}): {ex.Message}"));
+                            ServerManager.MinecraftServer.StandardInput.WriteLine(ChatTools.Tellraw("@a", TellrawColor.red, $"[ERROR] Failed to interpret math statement ({expression}): {ex.ToString()}"));
                             ServerManager.MinecraftServer.StandardInput.FlushAsync();
                         }
                     }

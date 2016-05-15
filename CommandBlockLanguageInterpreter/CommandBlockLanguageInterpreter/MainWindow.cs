@@ -220,7 +220,7 @@ namespace CommandBlockLanguageInterpreter
                                 {
                                     wasUserMade = true;
 
-                                    CustomCommands[chatMessage.TrimStart().Split(' ')[0] + ".mccbl"].Execute(user, chatMessage.TrimStart().Split(' ')[1]);
+                                    CustomCommands[chatMessage.TrimStart().Split(' ')[0] + ".mccbl"].Execute(user, chatMessage.TrimStart().Split(' ').Length > 1 ? string.Join(" ", chatMessage.TrimStart().Split(' ').Skip(1)) : "");
                                 }
 
                                 //Checks for premade custom commands

@@ -47,7 +47,7 @@ namespace CommandBlockLanguageInterpreter
                 string text = c.CommandText;
                 text = text.Replace("{arg}", suffix).Replace("{user}", user);
 
-                for (int i = 1; i < args.Length; i++)
+                for (int i = 1; i < args.Length + 1; i++)
                 {
                     text = text.Replace("{arg" + i + "}", args[i - 1]);
                 }
