@@ -24,7 +24,12 @@ namespace CommandBlockLanguageInterpreter
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(((LinkLabel)sender).Text);
+            System.Diagnostics.Process.Start("https://www.minecraft.net/downloads");
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.mojang.com");
         }
 
         private void label5_Click(object sender, EventArgs e)
@@ -34,12 +39,23 @@ namespace CommandBlockLanguageInterpreter
 
         private void Form4_Load(object sender, EventArgs e)
         {
-            label8.Text = Math.Round(new Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory / 1073741824d, 2) + "GB";
+            label8.Text = Math.Round(new Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory / 1073741824d, 2) + "GB available";
+            label13.Text = ServerManager.LoggedInPlayers.Count().ToString() + " players online";
         }
 
         private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("http://minecraft.gamepedia.com/Commands#Summary_of_commands");
+        }
+
+        private void linkLabel1_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

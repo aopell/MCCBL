@@ -117,36 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label10.Text" xml:space="preserve">
-    <value>Minecraft has a wide variety of commands that you can use to control your server. To read more about them, visit the Minecraft Wiki page here . In this server wrapper, to use a command, simply type it in the small black textbox at the bottom of the main window and hit enter on your keyboard to send it to the server. The console, the larger black box, logs all events from your server including sent and recieved commands, player chat message, warnings, and more. You cannot chat from the server console, but you can use the "say" command to send a message.</value>
-  </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>The amount of RAM you should allocate (set aside specifically for your server) to your server depends on many things. Firstly, it is important to understand what RAM is. RAM (Random Access Memory) contains data from all running programs on your computer. More RAM usually means better performance, therefore a computer with more RAM can run more tasks more effectively. A Minecraft Server needs a certain amount of RAM allocated for itself. The recommended amount should be is no less than 512MB and no more than your computer's total RAM amount (shown above in purple). For a vanilla server with a few players, 1GB of RAM is often sufficent. If your computer has some extra RAM to spare and you are noticing lag, you may want to increase the number. In this server wrapper, to allocate RAM to the server, edit the values in the Options menu in the main window. Hover over the [?] to see how to represent the amount you want. If done incorrectly, your server may not launch.</value>
-  </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>To start your server, you first need to download the Minecraft Multiplayer Server for your desired version of Minecraft. The newest stable release is posted to http://minecraft.net/download. If you are looking for a snapshot, try http://mojang.com.
+    <value>Download a server jar file from minecraft.net or mojang.com
 
-To use your server with this server wrapper:
+Place the jar anywhere on your computer, go ahead and give it its own folder
 
-1. Put your server file in a new empty folder in any location on your computer (remember where you put it)
+Double click the jar. A file called "eula" should appear
 
-2. Double-click to open the .jar file. It will open and immediately close a window.
+Open the file and change "false" to "true"
 
-3. In the folder with your server, you will see the file eula.txt (it may just display as eula). Open that file in any text editor.
+Save and close the file
 
-4. After reading and agreeing to the Minecraft EULA, replace the word "false" with the word "true" (no quotes).
+Click on "Server" then "Start" in the upper left corner of the main window
 
-5. Save and close the eula.txt file.
+Find the server jar and select it
 
-6. From the server wrapper program, click Options
-
-7. Set the desired min and max ram for your server (See Managing Your Server)
-
-8. In the main window, click Server &gt; Start in the upper left corner of the main window.
-
-9. In the Open File dialog, find and open your server .jar file you downloaded previously
-
-10. Your server has now started. To learn how to use your server, see "Managing Your Server"</value>
+Thats it! If you want to learn about what this program can do, go to the "Managing your server" tab</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
