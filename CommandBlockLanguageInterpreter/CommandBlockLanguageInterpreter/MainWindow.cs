@@ -58,6 +58,7 @@ namespace CommandBlockLanguageInterpreter
                 startToolStripMenuItem.Disable();
                 toolsToolStripMenuItem.Enabled = true;
                 importCommandBlockLanguageFileToolStripMenuItem.Enable();
+                batchImportCommandBlockLanguageFilesToolStripMenuItem.Enable();
                 stopToolStripMenuItem.Enable();
                 restartToolStripMenuItem.Enable();
                 switchToolStripMenuItem.Enable();
@@ -84,6 +85,7 @@ namespace CommandBlockLanguageInterpreter
                     startToolStripMenuItem.Enable();
                     toolsToolStripMenuItem.Enabled = false;
                     importCommandBlockLanguageFileToolStripMenuItem.Disable();
+                    batchImportCommandBlockLanguageFilesToolStripMenuItem.Disable();
                     stopToolStripMenuItem.Disable();
                     restartToolStripMenuItem.Disable();
                     switchToolStripMenuItem.Disable();
@@ -523,10 +525,10 @@ namespace CommandBlockLanguageInterpreter
                     CBLFile importer = interpreter.Interpret(ChooseFileDialog.FileName);
                     if (importer != null && importer.Import(this))
                     {
-                        SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.green, TellrawColor.yellow, TellrawColor.green }, new string[] { "Successfully imported ", interpreter.commands.Count.ToString(), " commands" }));
-                        ConsoleWindow.AppendText("Successfully imported " + interpreter.commands.Count + " commands");
+                        SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.green, TellrawColor.yellow, TellrawColor.green }, new string[] { "Successfully imported ", importer.Commands.Count.ToString(), " commands" }));
+                        ConsoleWindow.AppendText("Successfully imported " + importer.Commands.Count + " commands");
                         SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "Don't forget to enable the first Command Block if necessary"));
-                        //SendCommand("say §aSuccessfully §aimported §e§l" + interpreter.commands.Count + " §acommands");
+                        //SendCommand("say §aSuccessfully §aimported §e§l" + importer.Commands.Count + " §acommands");
                         //SendCommand("say §c§l§nDon't §c§l§nforget §cto §cenable §cthe §cfirst §cCommand §cBlock §cif §cnecessary");
                     }
                     else
@@ -551,10 +553,10 @@ namespace CommandBlockLanguageInterpreter
                     CBLFile importer = interpreter.Interpret(ChooseFileDialog.FileName);
                     if (importer != null && importer.Import(this))
                     {
-                        ConsoleWindow.AppendText("Successfully imported " + interpreter.commands.Count + " commands");
-                        SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.green, TellrawColor.yellow, TellrawColor.green }, new string[] { "Successfully imported ", interpreter.commands.Count.ToString(), " commands" }));
+                        ConsoleWindow.AppendText("Successfully imported " + importer.Commands.Count + " commands");
+                        SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.green, TellrawColor.yellow, TellrawColor.green }, new string[] { "Successfully imported ", importer.Commands.Count.ToString(), " commands" }));
                         SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "Don't forget to enable the first Command Block if necessary"));
-                        //SendCommand("say §aSuccessfully §areimported §e§l" + interpreter.commands.Count + " §acommands");
+                        //SendCommand("say §aSuccessfully §areimported §e§l" + importer.Commands.Count + " §acommands");
                         //SendCommand("say §c§l§nDon't §c§l§nforget §cto §cenable §cthe §cfirst §cCommand §cBlock §cif §cnecessary");
                     }
                     else
@@ -752,6 +754,44 @@ namespace CommandBlockLanguageInterpreter
             catch
             {
 
+            }
+        }
+
+        private void batchImportCommandBlockLanguageFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (batchImportCommandBlockLanguageFilesToolStripMenuItem.IsEnabled())
+            {
+                //Opens a folder dialog and then imports all files in the selected folder
+                if (ChooseFolderDialog.ShowDialog() != DialogResult.Cancel)
+                {
+                    string directory = ChooseFolderDialog.SelectedPath;
+                    foreach (string file in Directory.GetFiles(directory))
+                    {
+                        if (file.EndsWith(".mccbl"))
+                        {
+                            string fileName = Path.GetFileName(file);
+                            CBLInterpreter interpreter = new CBLInterpreter(this, fileName, false, "@e[type=ArmorStand,name=" + Path.GetFileName(file).Replace(' ', '_').Trim() + "]");
+                            ConsoleWindow.AppendText("Importing " + fileName);
+                            SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.gold, TellrawColor.aqua }, new string[] { "Importing ", fileName }));
+                            CBLFile importer = interpreter.Interpret(file);
+                            if (importer != null && importer.Import(this))
+                            {
+                                SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.green, TellrawColor.yellow, TellrawColor.green }, new string[] { "Successfully imported ", importer.Commands.Count.ToString(), " commands" }));
+                                ConsoleWindow.AppendText("Successfully imported " + importer.Commands.Count + " commands");
+                                SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "Don't forget to enable the first Command Block if necessary"));
+                            }
+                            else
+                            {
+                                SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "[ERROR] Import was cancelled or failed for file " + file));
+                            }
+                        }
+                    }
+
+                }
+                else
+                {
+                    SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "[ERROR] Import was cancelled or failed"));
+                }
             }
         }
     }

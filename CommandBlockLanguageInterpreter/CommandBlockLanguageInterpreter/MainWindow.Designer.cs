@@ -66,6 +66,8 @@
             this.aToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.serverManagerBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.batchImportCommandBlockLanguageFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ChooseFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.MainWindowToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.serverManagerBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -160,7 +162,7 @@
             this.startToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
@@ -170,7 +172,7 @@
             this.stopToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.stopToolStripMenuItem.ForeColor = System.Drawing.Color.LightCoral;
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.stopToolStripMenuItem.Tag = "Disabled";
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
@@ -181,7 +183,7 @@
             this.restartToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.restartToolStripMenuItem.ForeColor = System.Drawing.Color.LightCoral;
             this.restartToolStripMenuItem.Name = "restartToolStripMenuItem";
-            this.restartToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.restartToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.restartToolStripMenuItem.Tag = "Disabled";
             this.restartToolStripMenuItem.Text = "Restart";
             this.restartToolStripMenuItem.Click += new System.EventHandler(this.restartToolStripMenuItem_Click);
@@ -192,7 +194,7 @@
             this.switchToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.switchToolStripMenuItem.ForeColor = System.Drawing.Color.LightCoral;
             this.switchToolStripMenuItem.Name = "switchToolStripMenuItem";
-            this.switchToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.switchToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.switchToolStripMenuItem.Tag = "Disabled";
             this.switchToolStripMenuItem.Text = "Switch";
             this.switchToolStripMenuItem.Click += new System.EventHandler(this.switchToolStripMenuItem_Click);
@@ -205,7 +207,8 @@
             this.operatorsMenuItem,
             this.propertiesMenuItem,
             this.whitelistMenuItem,
-            this.importCommandBlockLanguageFileToolStripMenuItem});
+            this.importCommandBlockLanguageFileToolStripMenuItem,
+            this.batchImportCommandBlockLanguageFilesToolStripMenuItem});
             this.toolsToolStripMenuItem.Enabled = false;
             this.toolsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
@@ -221,7 +224,7 @@
             this.operatorsMenuItem.BackColor = System.Drawing.Color.DimGray;
             this.operatorsMenuItem.ForeColor = System.Drawing.Color.White;
             this.operatorsMenuItem.Name = "operatorsMenuItem";
-            this.operatorsMenuItem.Size = new System.Drawing.Size(275, 22);
+            this.operatorsMenuItem.Size = new System.Drawing.Size(313, 22);
             this.operatorsMenuItem.Text = "Show Operators";
             this.operatorsMenuItem.Click += new System.EventHandler(this.operatorsMenuItem_Click);
             // 
@@ -230,7 +233,7 @@
             this.propertiesMenuItem.BackColor = System.Drawing.Color.DimGray;
             this.propertiesMenuItem.ForeColor = System.Drawing.Color.White;
             this.propertiesMenuItem.Name = "propertiesMenuItem";
-            this.propertiesMenuItem.Size = new System.Drawing.Size(275, 22);
+            this.propertiesMenuItem.Size = new System.Drawing.Size(313, 22);
             this.propertiesMenuItem.Text = "Open Server Properties";
             this.propertiesMenuItem.Click += new System.EventHandler(this.propertiesMenuItem_Click);
             // 
@@ -239,7 +242,7 @@
             this.whitelistMenuItem.BackColor = System.Drawing.Color.DimGray;
             this.whitelistMenuItem.ForeColor = System.Drawing.Color.White;
             this.whitelistMenuItem.Name = "whitelistMenuItem";
-            this.whitelistMenuItem.Size = new System.Drawing.Size(275, 22);
+            this.whitelistMenuItem.Size = new System.Drawing.Size(313, 22);
             this.whitelistMenuItem.Text = "Show Whitelist";
             this.whitelistMenuItem.Click += new System.EventHandler(this.whitelistMenuItem_Click);
             // 
@@ -248,7 +251,7 @@
             this.importCommandBlockLanguageFileToolStripMenuItem.BackColor = System.Drawing.Color.DimGray;
             this.importCommandBlockLanguageFileToolStripMenuItem.ForeColor = System.Drawing.Color.LightCoral;
             this.importCommandBlockLanguageFileToolStripMenuItem.Name = "importCommandBlockLanguageFileToolStripMenuItem";
-            this.importCommandBlockLanguageFileToolStripMenuItem.Size = new System.Drawing.Size(275, 22);
+            this.importCommandBlockLanguageFileToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.importCommandBlockLanguageFileToolStripMenuItem.Tag = "Disabled";
             this.importCommandBlockLanguageFileToolStripMenuItem.Text = "Import CommandBlock Language File";
             this.importCommandBlockLanguageFileToolStripMenuItem.Click += new System.EventHandler(this.importCommandBlockLanguageFileToolStripMenuItem_Click);
@@ -456,6 +459,20 @@
             // 
             this.serverManagerBindingSource.DataSource = typeof(CommandBlockLanguageInterpreter.ServerManager);
             // 
+            // batchImportCommandBlockLanguageFilesToolStripMenuItem
+            // 
+            this.batchImportCommandBlockLanguageFilesToolStripMenuItem.BackColor = System.Drawing.Color.DimGray;
+            this.batchImportCommandBlockLanguageFilesToolStripMenuItem.ForeColor = System.Drawing.Color.LightCoral;
+            this.batchImportCommandBlockLanguageFilesToolStripMenuItem.Name = "batchImportCommandBlockLanguageFilesToolStripMenuItem";
+            this.batchImportCommandBlockLanguageFilesToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
+            this.batchImportCommandBlockLanguageFilesToolStripMenuItem.Text = "Batch Import CommandBlock Language Files";
+            this.batchImportCommandBlockLanguageFilesToolStripMenuItem.Click += new System.EventHandler(this.batchImportCommandBlockLanguageFilesToolStripMenuItem_Click);
+            // 
+            // ChooseFolderDialog
+            // 
+            this.ChooseFolderDialog.RootFolder = System.Environment.SpecialFolder.MyDocuments;
+            this.ChooseFolderDialog.ShowNewFolderButton = false;
+            // 
             // MainWindow
             // 
             this.AcceptButton = this.SendCommandButton;
@@ -521,5 +538,7 @@
         private System.Windows.Forms.ToolStripMenuItem aToolStripMenuItem;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.BindingSource serverManagerBindingSource;
+        private System.Windows.Forms.ToolStripMenuItem batchImportCommandBlockLanguageFilesToolStripMenuItem;
+        private System.Windows.Forms.FolderBrowserDialog ChooseFolderDialog;
     }
 }

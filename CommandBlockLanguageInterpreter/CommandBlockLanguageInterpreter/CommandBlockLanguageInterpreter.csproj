@@ -19,7 +19,7 @@
     <AssemblyVersionSettings>YearStamp.MonthStamp.DayStamp.Increment</AssemblyVersionSettings>
     <AssemblyFileVersionSettings>YearStamp.MonthStamp.DayStamp.Increment</AssemblyFileVersionSettings>
     <AssemblyInfoVersionSettings>YearStamp.MonthStamp.DayStamp.Increment</AssemblyInfoVersionSettings>
-    <AssemblyVersion>2016.5.15.157</AssemblyVersion>
+    <AssemblyVersion>2016.5.15.158</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>

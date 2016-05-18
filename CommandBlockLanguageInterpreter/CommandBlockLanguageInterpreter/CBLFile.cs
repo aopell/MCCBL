@@ -57,6 +57,32 @@ namespace CommandBlockLanguageInterpreter
             }
         }
 
+        /*
+        private int GetFacingDirection(int xmax, int zmax, int x, int y, int z, int index)
+        {
+            //5 forward
+            //3 right
+            //4 backwards
+            //1 up
+            //2 left
+
+            //WAIT THIS WON'T WORK IF THERE ARE AN EVEN NUMBER OF ROWS/COLUMNS
+            if (y % 2 == 0)
+            {
+                if (z % 2 == 0 && x > 0 && x < xmax) { return 5; }
+                else if ((z % 2 == 0 && x == xmax) || (z % 2 == 1 && x == 1)) { return 3; }
+                else if (z == zmax - 1 && x == xmax) { return 1; }
+            }
+            else
+            {
+                if (z % 2 == 0 && x > 0 && x < xmax) { return 5; }
+                else if ((z % 2 == 0 && x == xmax) || (z % 2 == 1 && x == 1)) { return 3; }
+                else if (z == zmax - 1 && x == xmax) { return 1; }
+            }
+
+        }
+        */
+
         /// <summary>
         /// Imports the current CBLFile as command blocks using the current ServerManager
         /// </summary>
@@ -81,6 +107,45 @@ namespace CommandBlockLanguageInterpreter
 
                 int loopedCommands = 0;
                 int yOffset = 0;
+
+                /*TEMP
+                int xmax = 5;
+                int zmax = 5;
+
+                while (loopedCommands < Commands.Count)
+                {
+                    for (int z = 0; z < zmax; z++)
+                    {
+                        for (int x = 1; x < xmax + 1; x++)
+                        {
+                            if (Commands.Count == loopedCommands) { break; };
+                            string facing = GetFacingDirection(xmax, zmax, x, yOffset, z, loopedCommands).ToString();
+
+                            string commandToSend = BuildCommand(Commands[loopedCommands], x, yOffset, z, facing, repeat, powered);
+                            ServerManager.MinecraftServer.StandardInput.WriteLine(commandToSend);
+                            ServerManager.MinecraftServer.StandardInput.Flush();
+                            loopedCommands++;
+                        }
+                    }
+                    yOffset++;
+                    for (int z = 0; z < zmax; z++)
+                    {
+                        for (int x = 1; x < xmax + 1; x++)
+                        {
+                            if (Commands.Count == loopedCommands) { break; };
+                            string facing = GetFacingDirection(xmax, zmax, xmax - x, yOffset, zmax - z, loopedCommands).ToString();
+
+                            string commandToSend = BuildCommand(Commands[loopedCommands], xmax - x, yOffset, zmax - z, facing, repeat, powered);
+                            ServerManager.MinecraftServer.StandardInput.WriteLine(commandToSend);
+                            ServerManager.MinecraftServer.StandardInput.Flush();
+                            loopedCommands++;
+                        }
+                    }
+                    yOffset++;
+                }
+
+                */
+
                 while (loopedCommands < Commands.Count)
                 {
                     for (int i = 0; i < 25; i++)
@@ -89,7 +154,7 @@ namespace CommandBlockLanguageInterpreter
                         {
                             //TODO: Find some way to fix this conditional problem
                             //May not be fixable in the current implementation
-                            //See "Transparency2/Utilities/Conditional Issue.png"
+                            //See https://github.com/aopell/MCCBL/blob/master/Examples/Conditionals%20Issue.png
                             if (Commands[loopedCommands].CommandType == Command.Type.Conditional && new int[] { 0, 4, 5, 9, 10, 14, 15, 19, 20, 24 }.Contains(i))
                             {
                                 ServerManager.MinecraftServer.StandardInput.WriteLine(ChatTools.Tellraw("@a", TellrawColor.red, "[WARNING] Conditional command not supported at height " + yOffset + " command index " + i));
