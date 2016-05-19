@@ -108,7 +108,9 @@ namespace CommandBlockLanguageInterpreter
                 int loopedCommands = 0;
                 int yOffset = 0;
 
-                /*TEMP
+                #region WIP New Code
+                /*
+                TEMP
                 int xmax = 5;
                 int zmax = 5;
 
@@ -145,6 +147,7 @@ namespace CommandBlockLanguageInterpreter
                 }
 
                 */
+                #endregion
 
                 while (loopedCommands < Commands.Count)
                 {
