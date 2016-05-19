@@ -64,7 +64,7 @@ namespace CommandBlockLanguageInterpreter
 
         private void button7_Click(object sender, EventArgs e)
         {
-            SendCommand($"execute ~ ~ ~ {Username} {textBox1.Text}");
+            SendCommand($"execute {Username} ~ ~ ~ {textBox1.Text}");
         }
 
         private void button2_Click(object sender, EventArgs e)
