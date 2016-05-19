@@ -41,11 +41,22 @@ namespace CommandBlockLanguageInterpreter
             ConsoleWindow.ScrollToCaret();
             ConsoleWindow.SelectionColor = Color.White;
         }
+        ///<summary>
+        ///returns true if the entity is found
+        ///</summary>
+        ///<param name="selector">The entity to testfor</param>
+        public bool Testfor(string selector)
+        {
+            SendCommand("testfor " + selector);
+            Thread.Sleep(50);
+            return ServerManager.LastRecievedMessage.Contains("Found");
+        }
 
-        /// <summary>
-        /// Prepares for server start, then starts the server
-        /// </summary>
-        private void StartServer()
+
+    /// <summary>
+    /// Prepares for server start, then starts the server
+    /// </summary>
+    private void StartServer()
         {
             ChooseFileDialog.Filter = "Minecraft Server Files (*.jar)|*.jar";
             if (ServerManager.Restart || ChooseFileDialog.ShowDialog() != DialogResult.Cancel)
@@ -770,18 +781,21 @@ namespace CommandBlockLanguageInterpreter
                     {
                         if (file.EndsWith(".mccbl"))
                         {
-                            string fileName = Path.GetFileName(file);
-                            CBLInterpreter interpreter = new CBLInterpreter(this, fileName, false, "@e[type=ArmorStand,name=" + Path.GetFileName(file).Replace(' ', '_').Replace(".mccbl", "").Trim() + "]");
-                            ConsoleWindow.AppendText("Importing " + fileName);
-                            SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.gold, TellrawColor.aqua }, new string[] { "Importing ", fileName }));
-                            CBLFile importer = interpreter.Interpret(file);
-                            if (importer != null && importer.Import(this))
+                            if (Testfor("@e[type=ArmorStand,name=" + Path.GetFileName(file).Replace(' ', '_').Replace(".mccbl", "").Trim() + "]"))
                             {
-                                totalCount += importer.Commands.Count;
-                            }
-                            else
-                            {
-                                SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "[ERROR] Import was cancelled or failed for file " + file));
+                                string fileName = Path.GetFileName(file);
+                                CBLInterpreter interpreter = new CBLInterpreter(this, fileName, false, "@e[type=ArmorStand,name=" + Path.GetFileName(file).Replace(' ', '_').Replace(".mccbl", "").Trim() + "]");
+                                ConsoleWindow.AppendText("Importing " + fileName);
+                                SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.gold, TellrawColor.aqua }, new string[] { "Importing ", fileName }));
+                                CBLFile importer = interpreter.Interpret(file);
+                                if (importer != null && importer.Import(this))
+                                {
+                                    totalCount += importer.Commands.Count;
+                                }
+                                else
+                                {
+                                    SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "[ERROR] Import was cancelled or failed for file " + file));
+                                }
                             }
                         }
                     }
