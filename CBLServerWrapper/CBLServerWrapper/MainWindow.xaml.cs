@@ -156,7 +156,15 @@ namespace CBLServerWrapper
                                 item.FontSize = 12;
                                 item.Height = 30;
                                 listBox1.Items.Add(item);
-                                label.Content = "Players - " + listBox1.Items.Count;
+                                if (listBox1.Items.Count > 1)
+                                {
+                                    label.Content = listBox1.Items.Count + "players";
+                                }
+                                else
+                                {
+                                    label.Content = "1 player";
+                                }
+                                
 
                                 if (File.Exists(ServerManager.MinecraftServer.StartInfo.WorkingDirectory + "\\motd.mccbl"))
                                 {
