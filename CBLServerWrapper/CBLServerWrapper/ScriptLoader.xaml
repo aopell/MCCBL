@@ -8,27 +8,27 @@
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
-        Title="ScriptLoader" Height="463.645" Width="551.127" FontFamily="Roboto" Icon="console.ico">
+        Title="Importing" Height="463.645" Width="551.127" FontFamily="Roboto" Icon="console.ico">
     <Grid>
         <Separator Height="100" Margin="0,162,0,0" VerticalAlignment="Top"/>
 
         <Separator Height="100" Margin="0,226,0,0" VerticalAlignment="Top"/>
         <Separator Height="100" Margin="0,99,0,0" VerticalAlignment="Top"/>
-        <Rectangle Fill="#FF00BCD4" Height="90" Stroke="#FF00BCD4" VerticalAlignment="Top"/>
+        <Rectangle Fill="{DynamicResource PrimaryHueMidBrush}" Height="90" VerticalAlignment="Top"/>
 
-        <Label x:Name="label" Content="Some Commands.mccbl" VerticalAlignment="Top" Height="40" FontSize="28" Margin="10,14,10,0" Foreground="White" Background="#FF00BCD4" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
-        <Label x:Name="label1" Content="55 Commands" Margin="10,45,10,0" VerticalAlignment="Top" Foreground="#FFB2EBF2" FontSize="16"/>
-        <Label x:Name="label2" Content="Minecraft Version" Margin="10,95,10,0" VerticalAlignment="Top" Foreground="#FF212121" FontSize="16"/>
-        <Label x:Name="label3" Content="Label" Margin="10,115,10,0" VerticalAlignment="Top" Foreground="#FF727272" FontSize="14"/>
-        <Label x:Name="label2_Copy" Content="Run Type" Margin="10,158,10,0" VerticalAlignment="Top" Foreground="#FF212121" FontSize="16"/>
-        <Label x:Name="label3_Copy" Content="Label" Margin="10,178,10,0" VerticalAlignment="Top" Foreground="#FF727272" FontSize="14"/>
-        <Label x:Name="label2_Copy1" Content="Chain Commands" Margin="10,221,10,0" VerticalAlignment="Top" Foreground="#FF212121" FontSize="16"/>
-        <Label x:Name="label3_Copy1" Content="Label" Margin="10,241,10,0" VerticalAlignment="Top" Foreground="#FF727272" FontSize="14"/>
-        <Label x:Name="label4" Content="Execute At" HorizontalAlignment="Left" Margin="10,283,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label x:Name="label5" Content="Player or Selector" HorizontalAlignment="Left" Margin="10,301,0,0" VerticalAlignment="Top" Foreground="#FF727272" FontSize="14"/>
-        <TextBox x:Name="selectorBox" Height="26" Margin="14,327,10,0" TextWrapping="Wrap" Text="@a[score_importCommands_min=1]" VerticalAlignment="Top" FontSize="14"/>
-        <Button x:Name="button" Content="Import" Margin="0,0,10,10" Background="#FF0097A7" BorderBrush="#FF0097A7" Foreground="White" FontWeight="Normal" IsDefault="True" Click="button_Click" Height="52" HorizontalAlignment="Right" Width="104" FontSize="18" VerticalAlignment="Bottom"/>
-        <Button x:Name="button1" Content="Cancel" Margin="0,0,119,10" IsCancel="True" FontWeight="Normal" Background="#FF00BCD4" BorderBrush="#FF00BCD4" Foreground="White" Height="52" HorizontalAlignment="Right" Width="104" Click="button1_Click" FontSize="18" VerticalAlignment="Bottom"/>
+        <Label x:Name="label" Content="Some Commands.mccbl" VerticalAlignment="Top" Height="40" FontSize="28" Margin="10,14,10,0" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+        <Label x:Name="label1" Content="55 commands" Margin="10,45,10,0" VerticalAlignment="Top" Foreground="{DynamicResource PrimaryHueLightBrush}" FontSize="16"/>
+        <Label x:Name="label2" Content="Minecraft version" Margin="10,95,10,0" VerticalAlignment="Top" Foreground="{DynamicResource MaterialDesignBody}" FontSize="16"/>
+        <Label x:Name="label3" Content="Label" Margin="10,115,10,0" VerticalAlignment="Top" Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+        <Label x:Name="label2_Copy" Content="Run type" Margin="10,158,10,0" VerticalAlignment="Top" Foreground="#FF212121" FontSize="16"/>
+        <Label x:Name="label3_Copy" Content="Label" Margin="10,178,10,0" VerticalAlignment="Top" Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+        <Label x:Name="label2_Copy1" Content="Chain commands" Margin="10,221,10,0" VerticalAlignment="Top"  Foreground="{DynamicResource MaterialDesignBody}" FontSize="16"/>
+        <Label x:Name="label3_Copy1" Content="Label" Margin="10,241,10,0" VerticalAlignment="Top" Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+        <Label x:Name="label4" Content="Execute at" HorizontalAlignment="Left" Margin="10,283,0,0" VerticalAlignment="Top" FontSize="16" Foreground="{DynamicResource MaterialDesignBody}"/>
+        <Label x:Name="label5" Content="Player or selector" HorizontalAlignment="Left" Margin="10,301,0,0" VerticalAlignment="Top" Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+        <TextBox x:Name="selectorBox" Height="26" Margin="14,327,10,0" TextWrapping="Wrap" Text="@a[score_importCommands_min=1]" VerticalAlignment="Top"/>
+        <Button x:Name="button" Content="Import" Margin="0,0,10,10" IsDefault="True" Click="button_Click" Height="36" HorizontalAlignment="Right" Width="104" FontSize="18" VerticalAlignment="Bottom" Style="{DynamicResource MaterialDesignFlatButton}"/>
+        <Button x:Name="button1" Content="Cancel" Margin="0,0,119,10" IsCancel="True" FontWeight="Normal" Height="36" HorizontalAlignment="Right" Width="104" Click="button1_Click" FontSize="18" VerticalAlignment="Bottom" Style="{DynamicResource MaterialDesignFlatButton}"/>
 
     </Grid>
 </Window>

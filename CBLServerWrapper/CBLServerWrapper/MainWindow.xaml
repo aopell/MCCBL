@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CBLServerWrapper"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Minecraft Server Wrapper" Height="486.838" Width="723.601"
+        Title="Minecraft server wrapper" Height="486.838" Width="723.601"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
@@ -14,83 +14,83 @@
         Closing="Window_Closing" Icon="console.ico">
     <Grid>
 
-        <Menu x:Name="toolStrip" IsMainMenu="True" DockPanel.Dock="Top" Background="#FF00BCD4" Height="58" VerticalAlignment="Top">
-            <MenuItem x:Name="serverMenu" Header="Server" Height="{Binding ActualHeight, ElementName=toolStrip, Mode=OneWay}" Margin="5,0,0,0" Foreground="White" FontSize="18" >
-                <MenuItem x:Name="serverStart" Header="Start" Click="serverStart_Click" Foreground="White">
+        <Menu x:Name="toolStrip" IsMainMenu="True" DockPanel.Dock="Top" Background="{DynamicResource PrimaryHueMidBrush}" Height="58" VerticalAlignment="Top">
+            <MenuItem x:Name="serverMenu" Header="Server" Height="{Binding ActualHeight, ElementName=toolStrip, Mode=OneWay}" Margin="5,0,0,0" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" FontSize="18" >
+                <MenuItem x:Name="serverStart" Header="Start" Click="serverStart_Click" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="Console" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="serverStop" Header="Stop" IsEnabled="False" Click="serverStop_Click" Foreground="White">
+                <MenuItem x:Name="serverStop" Header="Stop" IsEnabled="False" Click="serverStop_Click" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="CloseBoxOutline" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="serverRestart" Header="Restart" IsEnabled="False" Click="serverRestart_Click" Foreground="White">
+                <MenuItem x:Name="serverRestart" Header="Restart" IsEnabled="False" Click="serverRestart_Click" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="Refresh" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="serverSwitch" Header="Switch" IsEnabled="False" Click="serverSwitch_Click" Foreground="White">
+                <MenuItem x:Name="serverSwitch" Header="Switch" IsEnabled="False" Click="serverSwitch_Click" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="OpenInNew" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem x:Name="toolsMenu" Header="Tools" Height="{Binding ActualHeight, ElementName=toolStrip, Mode=OneWay}" IsEnabled="False" Foreground="White" FontSize="18">
-                <MenuItem x:Name="toolsImport" Header="Import CBL File" Click="toolsImport_Click" Foreground="White">
+            <MenuItem x:Name="toolsMenu" Header="Tools" Height="{Binding ActualHeight, ElementName=toolStrip, Mode=OneWay}" IsEnabled="False" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" FontSize="18">
+                <MenuItem x:Name="toolsImport" Header="Import CBL File" Click="toolsImport_Click" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="Import" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="toolsBatch" Header="Batch Import CBL Files" Click="toolsBatch_Click" Foreground="White">
+                <MenuItem x:Name="toolsBatch" Header="Batch Import CBL Files" Click="toolsBatch_Click" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="FormatListBulleted" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="toolsOperators" Header="Show Operators" Click="toolsOperators_Click" Foreground="White">
+                <MenuItem x:Name="toolsOperators" Header="Show Operators" Click="toolsOperators_Click" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="AccountStarVariant" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="toolsProperties" Header="Show Server Properties" Click="toolsProperties_Click" Foreground="White">
+                <MenuItem x:Name="toolsProperties" Header="Show Server Properties" Click="toolsProperties_Click" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="DotsHorizontal" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="toolsWhitelist" Header="Show Whitelist" Click="toolsWhitelist_Click" Foreground="White">
+                <MenuItem x:Name="toolsWhitelist" Header="Show Whitelist" Click="toolsWhitelist_Click" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="AccountMultiple" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem x:Name="optionsMenu" Header="Settings" Height="{Binding ActualHeight, ElementName=toolStrip, Mode=OneWay}" Foreground="White" FontSize="18">
-                <MenuItem x:Name="optionsOptions" Header="Server Options" Foreground="White" Click="optionsOptions_Click">
+            <MenuItem x:Name="optionsMenu" Header="Settings" Height="{Binding ActualHeight, ElementName=toolStrip, Mode=OneWay}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" FontSize="18">
+                <MenuItem x:Name="optionsOptions" Header="Server Options" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" Click="optionsOptions_Click">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="Settings"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
-                <MenuItem Header="Minimum RAM" InputGestureText="[?]" ToolTip="GB = G; MB = M; For 1GB enter 1G" Foreground="White" IsEnabled="False">
+                <MenuItem Header="Minimum RAM" InputGestureText="[?]" ToolTip="GB = G; MB = M; For 1GB enter 1G" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" IsEnabled="False">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="MinusBox" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <TextBox x:Name="minRAM" Margin="10,0,0,0" Text="1G" Width="150" HorizontalAlignment="Left" Foreground="White" TextChanged="minRAM_TextChanged"/>
-                <MenuItem Header="Maximum RAM" InputGestureText="[?]" ToolTip="GB = G; MB = M; For 1GB enter 1G" Foreground="White" IsEnabled="False">
+                <TextBox x:Name="minRAM" Margin="10,0,0,0" Text="1G" Width="150" HorizontalAlignment="Left" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" TextChanged="minRAM_TextChanged"/>
+                <MenuItem Header="Maximum RAM" InputGestureText="[?]" ToolTip="GB = G; MB = M; For 1GB enter 1G" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" IsEnabled="False">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="PlusBox" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <TextBox x:Name="maxRAM" Margin="10,0,0,0" Text="1G" Width="150" Foreground="White" TextChanged="maxRAM_TextChanged"/>
+                <TextBox x:Name="maxRAM" Margin="10,0,0,0" Text="1G" Width="150" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" TextChanged="maxRAM_TextChanged"/>
             </MenuItem>
-            <MenuItem Header="Help" Height="{Binding ActualHeight, ElementName=toolStrip, Mode=OneWay}" Foreground="White" FontSize="18">
-                <MenuItem x:Name="helpHelp" Header="Help" Foreground="White" Click="helpHelp_Click">
+            <MenuItem Header="Help" Height="{Binding ActualHeight, ElementName=toolStrip, Mode=OneWay}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" FontSize="18">
+                <MenuItem x:Name="helpHelp" Header="Help" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" Click="helpHelp_Click">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="Help"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="helpAbout" Header="About" Foreground="White" Click="helpAbout_Click">
+                <MenuItem x:Name="helpAbout" Header="About" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" Click="helpAbout_Click">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="Information" />
                     </MenuItem.Icon>
@@ -98,16 +98,16 @@
             </MenuItem>
         </Menu>
 
-        <RichTextBox x:Name="ConsoleWindow" Margin="121,71,10,40" Block.LineHeight="12" IsReadOnly="True" VerticalScrollBarVisibility="Auto" FontSize="14">
+        <RichTextBox x:Name="ConsoleWindow" Margin="121,71,10,53" Block.LineHeight="12" IsReadOnly="True" VerticalScrollBarVisibility="Auto" FontSize="14">
             <FlowDocument>
                 <Paragraph/>
             </FlowDocument>
         </RichTextBox>
-        <Button x:Name="button" Content="Run" Margin="0,0,10,12" Height="23" Background="#FF00BCD4" BorderBrush="#FF00BCD4" Foreground="White" FontFamily="Roboto" IsDefault="True" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="65" Click="SendCommandButton_Click" FontSize="14" FontWeight="Normal"/>
-        <TextBox x:Name="CommandInput" Margin="121,0,80,10" TextWrapping="Wrap" Height="23" VerticalAlignment="Bottom" KeyUp="CommandInput_KeyUp" FontSize="14"/>
-        <ListBox x:Name="listBox1" HorizontalAlignment="Left" Margin="10,87,0,10" Width="106">
+        <Button x:Name="button" Content="RUN" Margin="0,0,10,12" Height="36" Background="{DynamicResource PrimaryHueMidBrush}" BorderBrush="{DynamicResource PrimaryHueMidBrush}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" FontFamily="Roboto" IsDefault="True" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="65" Click="SendCommandButton_Click" FontSize="14" FontWeight="Normal"/>
+        <TextBox x:Name="CommandInput" Margin="121,0,80,10" TextWrapping="Wrap" Height="36" VerticalAlignment="Bottom" KeyUp="CommandInput_KeyUp" FontSize="14"/>
+        <ListBox x:Name="listBox1" HorizontalAlignment="Left" Margin="10,100,0,12" Width="106">
         </ListBox>
-        <Label x:Name="label" Content="Server Offline" HorizontalAlignment="Left" Margin="6,63,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="110"/>
+        <Label x:Name="label" Content="Server offline" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="110"  Foreground="{DynamicResource MaterialDesignBody}"/>
         <materialDesign:DialogHost Identifier="ADialogBox"></materialDesign:DialogHost>
     </Grid>
 </Window>

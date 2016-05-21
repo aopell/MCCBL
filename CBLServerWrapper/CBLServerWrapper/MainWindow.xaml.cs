@@ -62,7 +62,7 @@ namespace CBLServerWrapper
 
                 //Server starts here
                 ServerManager.StartServer(ChooseFileDialog.FileName, this);
-                label.Content = "Players - 0";
+                label.Content = "No players";
                 listBox1.Items.Clear();
                 serverStart.IsEnabled = false;
                 toolsMenu.IsEnabled = true;
@@ -89,7 +89,7 @@ namespace CBLServerWrapper
                     ConsoleWindow.ScrollToEnd();
 
                     listBox1.Items.Clear();
-                    label.Content = "Server Offline";
+                    label.Content = "Server offline";
 
                     serverStart.IsEnabled = true;
                     toolsMenu.IsEnabled = false;
@@ -156,7 +156,19 @@ namespace CBLServerWrapper
                                 item.FontSize = 12;
                                 item.Height = 30;
                                 listBox1.Items.Add(item);
-                                label.Content = "Players - " + listBox1.Items.Count;
+                                if (listBox1.Items.Count > 1)
+                                {
+                                    label.Content = listBox1.Items.Count + "players";
+                                }
+                                else if (listBox1.Items.Count == 1)
+                                {
+                                    label.Content = "1 player";
+                                }
+                                else
+                                {
+                                    label.Content = "No players";
+                                }
+
 
                                 if (File.Exists(ServerManager.MinecraftServer.StartInfo.WorkingDirectory + "\\motd.mccbl"))
                                 {
@@ -184,18 +196,29 @@ namespace CBLServerWrapper
 
                                 string player = ChatTools.FilterCommand(ServerManager.LastRecievedMessage).Split(new string[] { "lost connection" }, StringSplitOptions.None)[0].Trim();
                                 ServerManager.LoggedInPlayers.Remove(player);
-                                foreach (object item in listBox1.Items)
+                                foreach (ListBoxItem item in listBox1.Items)
                                 {
                                     try
                                     {
-                                        if (((ListBoxItem)item).Content.ToString() == player)
+                                        if (item.Content.ToString() == player)
                                         {
                                             listBox1.Items.Remove(item);
                                         }
                                     }
                                     catch { }
                                 }
-                                label.Content = "Players - " + listBox1.Items.Count;
+                                if (listBox1.Items.Count > 1)
+                                {
+                                    label.Content = listBox1.Items.Count + "players";
+                                }
+                                else if (listBox1.Items.Count == 1)
+                                {
+                                    label.Content = "1 player";
+                                }
+                                else
+                                {
+                                    label.Content = "No players";
+                                }
                             }
                         }
                         //Checks for events that make green text
@@ -554,9 +577,9 @@ namespace CBLServerWrapper
                     CBLFile importer = interpreter.Interpret(ChooseFileDialog.FileName);
                     if (importer != null && importer.Import(this))
                     {
-                        SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.green, TellrawColor.yellow, TellrawColor.green }, new string[] { "Successfully imported ", importer.Commands.Count.ToString(), " commands" }));
-                        ConsoleWindow.AppendText("Successfully imported " + importer.Commands.Count + " commands");
-                        SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "Don't forget to enable the first Command Block if necessary"));
+                        SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.green, TellrawColor.yellow, TellrawColor.green }, new string[] { "Imported ", importer.Commands.Count.ToString(), " commands" }));
+                        ConsoleWindow.AppendText("Imported " + importer.Commands.Count + " commands");
+                        SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "Don't forget to enable the first command block"));
                         //SendCommand("say §aSuccessfully §aimported §e§l" + importer.Commands.Count + " §acommands");
                         //SendCommand("say §c§l§nDon't §c§l§nforget §cto §cenable §cthe §cfirst §cCommand §cBlock §cif §cnecessary");
                     }
@@ -582,9 +605,9 @@ namespace CBLServerWrapper
                     CBLFile importer = interpreter.Interpret(ChooseFileDialog.FileName);
                     if (importer != null && importer.Import(this))
                     {
-                        ConsoleWindow.AppendText("Successfully imported " + importer.Commands.Count + " commands");
-                        SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.green, TellrawColor.yellow, TellrawColor.green }, new string[] { "Successfully imported ", importer.Commands.Count.ToString(), " commands" }));
-                        SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "Don't forget to enable the first Command Block if necessary"));
+                        ConsoleWindow.AppendText("Imported " + importer.Commands.Count + " commands");
+                        SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.green, TellrawColor.yellow, TellrawColor.green }, new string[] { "Imported ", importer.Commands.Count.ToString(), " commands" }));
+                        SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "Don't forget to enable the first command block"));
                         //SendCommand("say §aSuccessfully §areimported §e§l" + importer.Commands.Count + " §acommands");
                         //SendCommand("say §c§l§nDon't §c§l§nforget §cto §cenable §cthe §cfirst §cCommand §cBlock §cif §cnecessary");
                     }
@@ -779,6 +802,7 @@ namespace CBLServerWrapper
                 //Opens a folder dialog and then imports all files in the selected folder
                 if (ChooseFolderDialog.ShowDialog() != System.Windows.Forms.DialogResult.Cancel)
                 {
+                    int commandCount = 0;
                     string directory = ChooseFolderDialog.SelectedPath;
                     foreach (string file in Directory.GetFiles(directory))
                     {
@@ -791,9 +815,7 @@ namespace CBLServerWrapper
                             CBLFile importer = interpreter.Interpret(file);
                             if (importer != null && importer.Import(this))
                             {
-                                SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.green, TellrawColor.yellow, TellrawColor.green }, new string[] { "Successfully imported ", importer.Commands.Count.ToString(), " commands" }));
-                                ConsoleWindow.AppendText("Successfully imported " + importer.Commands.Count + " commands");
-                                SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "Don't forget to enable the first Command Block if necessary"));
+                                commandCount += importer.Commands.Count;
                             }
                             else
                             {
@@ -801,7 +823,9 @@ namespace CBLServerWrapper
                             }
                         }
                     }
-
+                    SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.green, TellrawColor.yellow, TellrawColor.green }, new string[] { "Imported ", commandCount.ToString(), " commands" }));
+                    ConsoleWindow.AppendText("Successfully imported " + commandCount + " commands");
+                    SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "Don't forget to enable the first command block of each section"));
                 }
                 else
                 {

@@ -4,7 +4,9 @@
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       WindowTransitionsEnabled="False"
                       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-                      Background="{DynamicResource MaterialDesignPaper}"					  
+                      Background="{DynamicResource MaterialDesignPaper}"
+                      TextElement.FontSize="14"
+                      FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"				  
                       Title="Help" Height="640" Width="800" Icon="console.ico">
     <controls:MetroWindow.Flyouts>
         <controls:FlyoutsControl>
@@ -13,15 +15,9 @@
         </controls:FlyoutsControl>
     </controls:MetroWindow.Flyouts>
     <TabControl>
-        <TabItem Header="STARTING YOUR SERVER">
-            <Grid>
-                <Rectangle Fill="#FF00BCD4" Height="75" Stroke="#FF00BCD4" VerticalAlignment="Top" Margin="-9,0"/>
-
-                <Label x:Name="label" Content="Starting Your Server" Margin="10,0,146,0" FontFamily="Roboto" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="White" FontSize="36" Height="75" VerticalAlignment="Top"/>
-
-            </Grid>
+        <TabItem Header="STARTING SERVER">
         </TabItem>
-        <TabItem Header="MANAGING YOUR SERVER">
+        <TabItem Header="MANAGING SERVER">
         </TabItem>
     </TabControl>
 </controls:MetroWindow>
