@@ -62,7 +62,7 @@ namespace CBLServerWrapper
 
                 //Server starts here
                 ServerManager.StartServer(ChooseFileDialog.FileName, this);
-                label.Content = "Players - 0";
+                label.Content = "Nobody here";
                 listBox1.Items.Clear();
                 serverStart.IsEnabled = false;
                 toolsMenu.IsEnabled = true;
@@ -89,7 +89,7 @@ namespace CBLServerWrapper
                     ConsoleWindow.ScrollToEnd();
 
                     listBox1.Items.Clear();
-                    label.Content = "Server Offline";
+                    label.Content = "Server offline";
 
                     serverStart.IsEnabled = true;
                     toolsMenu.IsEnabled = false;
