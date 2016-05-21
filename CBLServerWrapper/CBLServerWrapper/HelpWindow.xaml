@@ -5,7 +5,7 @@
                       WindowTransitionsEnabled="False"
                       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
                       Background="{DynamicResource MaterialDesignPaper}"					  
-                      Title="Help" Height="640" Width="800" Icon="Iso_Computer.ico">
+                      Title="Help" Height="640" Width="800" Icon="console.ico">
     <controls:MetroWindow.Flyouts>
         <controls:FlyoutsControl>
             <controls:Flyout x:Name="LeftFlyout" Position="Left" Header="Settings">

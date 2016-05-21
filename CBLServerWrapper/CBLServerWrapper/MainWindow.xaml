@@ -11,7 +11,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         Loaded="Window_Loaded"
-        Closing="Window_Closing" Icon="Iso_Computer.ico">
+        Closing="Window_Closing" Icon="console.ico">
     <Grid>
 
         <Menu x:Name="toolStrip" IsMainMenu="True" DockPanel.Dock="Top" Background="#FF00BCD4" Height="58" VerticalAlignment="Top">

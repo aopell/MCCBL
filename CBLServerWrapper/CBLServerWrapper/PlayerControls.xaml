@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
-        Title="Player Controls" Height="285.381" Width="646.417" FontFamily="Roboto" ResizeMode="NoResize" Icon="Iso_Computer.ico">
+        Title="Player Controls" Height="285.381" Width="646.417" FontFamily="Roboto" ResizeMode="NoResize" Icon="console.ico">
     <Grid x:Name="grid">
         <Rectangle Fill="#FF00BCD4" Height="75" Stroke="#FF00BCD4" VerticalAlignment="Top"/>
 

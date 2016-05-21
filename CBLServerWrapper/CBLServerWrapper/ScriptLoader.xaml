@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
-        Title="ScriptLoader" Height="463.645" Width="551.127" FontFamily="Roboto" Icon="Iso_Computer.ico">
+        Title="ScriptLoader" Height="463.645" Width="551.127" FontFamily="Roboto" Icon="console.ico">
     <Grid>
         <Separator Height="100" Margin="0,162,0,0" VerticalAlignment="Top"/>
 
