@@ -8,21 +8,21 @@
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
-        Title="Player controls" Height="262.032" Width="646.417" FontFamily="Roboto" ResizeMode="NoResize" Icon="console.ico" Topmost="True">
+        Title="Player Controls" Height="262.032" Width="646.417" FontFamily="Roboto" ResizeMode="NoResize" Icon="console.ico" Topmost="True">
     <Grid x:Name="grid">
         <Rectangle Fill="{DynamicResource PrimaryHueMidBrush}" Height="75" VerticalAlignment="Top"/>
 
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="33" Margin="10,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="620" TextChanged="textBox_TextChanged"/>
-        <Button x:Name="button" Content="OP" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="120" Height="36" Click="button_Click"/>
-        <Button x:Name="button_Copy" Content="De-OP" HorizontalAlignment="Left" Margin="135,96,0,0" VerticalAlignment="Top" Width="120" Height="36" Click="button_Copy_Click"/>
-        <Button x:Name="button_Copy1" Content="Whitelist+" HorizontalAlignment="Left" Margin="260,96,0,0" VerticalAlignment="Top" Width="120" Height="36" Click="button_Copy1_Click"/>
-        <Button x:Name="button_Copy2" Content="Whitelist-" HorizontalAlignment="Left" Margin="385,96,0,0" VerticalAlignment="Top" Width="120" Height="36" Click="button_Copy2_Click"/>
-        <Button x:Name="button_Copy3" Content="Kill" Margin="510,96,10,0" VerticalAlignment="Top" Height="36" Click="button_Copy3_Click"/>
-        <Button x:Name="button_Copy4" Content="Tell" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top" Width="120" Height="36" Uid="REQUIRE" IsEnabled="False" Click="button_Copy4_Click"/>
-        <Button x:Name="button_Copy5" Content="Execute" HorizontalAlignment="Left" Margin="135,187,0,0" VerticalAlignment="Top" Width="120" Height="36" Uid="REQUIRE" IsEnabled="False" Click="button_Copy5_Click" IsDefault="True"/>
-        <Button x:Name="button_Copy6" Content="Kick" HorizontalAlignment="Left" Margin="260,187,0,0" VerticalAlignment="Top" Width="120" Height="36" Uid="REQUIRE" IsEnabled="False" Click="button_Copy6_Click"/>
-        <Button x:Name="button_Copy7" Content="Ban" HorizontalAlignment="Left" Margin="385,187,0,0" VerticalAlignment="Top" Width="120" Height="36" Uid="REQUIRE" IsEnabled="False" Click="button_Copy7_Click"/>
-        <Button x:Name="button_Copy8" Content="IP Ban" Margin="510,187,0,0" VerticalAlignment="Top" Height="36" Uid="REQUIRE" IsEnabled="False" Click="button_Copy8_Click" HorizontalAlignment="Left" Width="120"/>
+        <Button x:Name="button" Content="OP" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="120" Height="36" Click="button_Click" Style="{DynamicResource MaterialDesignFlatButton}" FontSize="14"/>
+        <Button x:Name="button_Copy" Content="De-OP" HorizontalAlignment="Left" Margin="135,96,0,0" VerticalAlignment="Top" Width="120" Height="36" Click="button_Copy_Click" Style="{DynamicResource MaterialDesignFlatButton}" FontSize="14"/>
+        <Button x:Name="button_Copy1" Content="Whitelist+" HorizontalAlignment="Left" Margin="260,96,0,0" VerticalAlignment="Top" Width="120" Height="36" Click="button_Copy1_Click" Style="{DynamicResource MaterialDesignFlatButton}" FontSize="14"/>
+        <Button x:Name="button_Copy2" Content="Whitelist-" HorizontalAlignment="Left" Margin="385,96,0,0" VerticalAlignment="Top" Width="120" Height="36" Click="button_Copy2_Click" Style="{DynamicResource MaterialDesignFlatButton}" FontSize="14"/>
+        <Button x:Name="button_Copy3" Content="Kill" Margin="510,96,10,0" VerticalAlignment="Top" Height="36" Click="button_Copy3_Click" Style="{DynamicResource MaterialDesignFlatButton}" FontSize="14"/>
+        <Button x:Name="button_Copy4" Content="Tell" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top" Width="120" Height="36" Uid="REQUIRE" IsEnabled="False" Click="button_Copy4_Click" Style="{DynamicResource MaterialDesignFlatButton}" FontSize="14"/>
+        <Button x:Name="button_Copy5" Content="Execute" HorizontalAlignment="Left" Margin="510,187,0,0" VerticalAlignment="Top" Width="120" Height="36" Uid="REQUIRE" IsEnabled="False" Click="button_Copy5_Click" IsDefault="True" FontSize="16" />
+        <Button x:Name="button_Copy6" Content="Kick" HorizontalAlignment="Left" Margin="135,187,0,0" VerticalAlignment="Top" Width="120" Height="36" Uid="REQUIRE" IsEnabled="False" Click="button_Copy6_Click" Style="{DynamicResource MaterialDesignFlatButton}" FontSize="14"/>
+        <Button x:Name="button_Copy7" Content="Ban" HorizontalAlignment="Left" Margin="260,187,0,0" VerticalAlignment="Top" Width="120" Height="36" Uid="REQUIRE" IsEnabled="False" Click="button_Copy7_Click" Style="{DynamicResource MaterialDesignFlatButton}" FontSize="14"/>
+        <Button x:Name="button_Copy8" Content="IP Ban" Margin="385,187,0,0" VerticalAlignment="Top" Height="36" Uid="REQUIRE" IsEnabled="False" Click="button_Copy8_Click" HorizontalAlignment="Left" Width="120" Style="{DynamicResource MaterialDesignFlatButton}" FontSize="14"/>
         <Label x:Name="label" Content="Label" Margin="10,0,0,0" FontFamily="Roboto" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" FontSize="36" Height="75" VerticalAlignment="Top"/>
 
     </Grid>

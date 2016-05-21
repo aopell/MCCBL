@@ -6,13 +6,15 @@
         xmlns:local="clr-namespace:CBLServerWrapper"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Minecraft server wrapper" Height="486.838" Width="723.601"
+        Title="Minecraft Server Wrapper" Height="486.838" Width="723.601"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         Loaded="Window_Loaded"
         Closing="Window_Closing" Icon="console.ico">
     <Grid>
+
+        <materialDesign:DialogHost Identifier="ADialogBox"/>
 
         <Menu x:Name="toolStrip" IsMainMenu="True" DockPanel.Dock="Top" Background="{DynamicResource PrimaryHueMidBrush}" Height="58" VerticalAlignment="Top">
             <MenuItem x:Name="serverMenu" Header="Server" Height="{Binding ActualHeight, ElementName=toolStrip, Mode=OneWay}" Margin="5,0,0,0" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" FontSize="18" >
@@ -105,9 +107,7 @@
         </RichTextBox>
         <Button x:Name="button" Content="RUN" Margin="0,0,10,12" Height="36" Background="{DynamicResource PrimaryHueMidBrush}" BorderBrush="{DynamicResource PrimaryHueMidBrush}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" FontFamily="Roboto" IsDefault="True" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="65" Click="SendCommandButton_Click" FontSize="14" FontWeight="Normal"/>
         <TextBox x:Name="CommandInput" Margin="121,0,80,10" TextWrapping="Wrap" Height="36" VerticalAlignment="Bottom" KeyUp="CommandInput_KeyUp" FontSize="14"/>
-        <ListBox x:Name="listBox1" HorizontalAlignment="Left" Margin="10,100,0,12" Width="106">
-        </ListBox>
-        <Label x:Name="label" Content="Server offline" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="110"  Foreground="{DynamicResource MaterialDesignBody}"/>
-        <materialDesign:DialogHost Identifier="ADialogBox"></materialDesign:DialogHost>
+        <ListBox x:Name="listBox1" HorizontalAlignment="Left" Margin="10,100,0,12" Width="106"/>
+        <Label x:Name="label" Content="Server offline" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="110"  Foreground="{DynamicResource MaterialDesignBody}" FontWeight="Bold"/>
     </Grid>
 </Window>

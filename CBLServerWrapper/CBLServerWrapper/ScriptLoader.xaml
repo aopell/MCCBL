@@ -27,7 +27,7 @@
         <Label x:Name="label4" Content="Execute at" HorizontalAlignment="Left" Margin="10,283,0,0" VerticalAlignment="Top" FontSize="16" Foreground="{DynamicResource MaterialDesignBody}"/>
         <Label x:Name="label5" Content="Player or selector" HorizontalAlignment="Left" Margin="10,301,0,0" VerticalAlignment="Top" Foreground="{DynamicResource MaterialDesignBodyLight}"/>
         <TextBox x:Name="selectorBox" Height="26" Margin="14,327,10,0" TextWrapping="Wrap" Text="@a[score_importCommands_min=1]" VerticalAlignment="Top"/>
-        <Button x:Name="button" Content="Import" Margin="0,0,10,10" IsDefault="True" Click="button_Click" Height="36" HorizontalAlignment="Right" Width="104" FontSize="18" VerticalAlignment="Bottom" Style="{DynamicResource MaterialDesignFlatButton}"/>
+        <Button x:Name="button" Content="Import" Margin="0,0,10,10" IsDefault="True" Click="button_Click" Height="36" HorizontalAlignment="Right" Width="104" FontSize="18" VerticalAlignment="Bottom"/>
         <Button x:Name="button1" Content="Cancel" Margin="0,0,119,10" IsCancel="True" FontWeight="Normal" Height="36" HorizontalAlignment="Right" Width="104" Click="button1_Click" FontSize="18" VerticalAlignment="Bottom" Style="{DynamicResource MaterialDesignFlatButton}"/>
 
     </Grid>
