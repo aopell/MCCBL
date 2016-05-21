@@ -62,7 +62,7 @@ namespace CBLServerWrapper
 
                 //Server starts here
                 ServerManager.StartServer(ChooseFileDialog.FileName, this);
-                label.Content = "Nobody here";
+                label.Content = "No players";
                 listBox1.Items.Clear();
                 serverStart.IsEnabled = false;
                 toolsMenu.IsEnabled = true;
@@ -160,11 +160,15 @@ namespace CBLServerWrapper
                                 {
                                     label.Content = listBox1.Items.Count + "players";
                                 }
-                                else
+                                else if (listBox1.Items.Count == 1)
                                 {
                                     label.Content = "1 player";
                                 }
-                                
+                                else
+                                {
+                                    label.Content = "No players";
+                                }
+
 
                                 if (File.Exists(ServerManager.MinecraftServer.StartInfo.WorkingDirectory + "\\motd.mccbl"))
                                 {
@@ -192,18 +196,29 @@ namespace CBLServerWrapper
 
                                 string player = ChatTools.FilterCommand(ServerManager.LastRecievedMessage).Split(new string[] { "lost connection" }, StringSplitOptions.None)[0].Trim();
                                 ServerManager.LoggedInPlayers.Remove(player);
-                                foreach (object item in listBox1.Items)
+                                foreach (ListBoxItem item in listBox1.Items)
                                 {
                                     try
                                     {
-                                        if (((ListBoxItem)item).Content.ToString() == player)
+                                        if (item.Content.ToString() == player)
                                         {
                                             listBox1.Items.Remove(item);
                                         }
                                     }
                                     catch { }
                                 }
-                                label.Content = "Players - " + listBox1.Items.Count;
+                                if (listBox1.Items.Count > 1)
+                                {
+                                    label.Content = listBox1.Items.Count + "players";
+                                }
+                                else if (listBox1.Items.Count == 1)
+                                {
+                                    label.Content = "1 player";
+                                }
+                                else
+                                {
+                                    label.Content = "No players";
+                                }
                             }
                         }
                         //Checks for events that make green text
