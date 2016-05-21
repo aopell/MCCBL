@@ -62,7 +62,7 @@ namespace CBLServerWrapper
 
                 //Server starts here
                 ServerManager.StartServer(ChooseFileDialog.FileName, this);
-                label.Content = "No players";
+                label.Content = "No Players";
                 listBox1.Items.Clear();
                 serverStart.IsEnabled = false;
                 toolsMenu.IsEnabled = true;
@@ -89,7 +89,7 @@ namespace CBLServerWrapper
                     ConsoleWindow.ScrollToEnd();
 
                     listBox1.Items.Clear();
-                    label.Content = "Server offline";
+                    label.Content = "Server Offline";
 
                     serverStart.IsEnabled = true;
                     toolsMenu.IsEnabled = false;
@@ -158,15 +158,15 @@ namespace CBLServerWrapper
                                 listBox1.Items.Add(item);
                                 if (listBox1.Items.Count > 1)
                                 {
-                                    label.Content = listBox1.Items.Count + "players";
+                                    label.Content = listBox1.Items.Count + "Players";
                                 }
                                 else if (listBox1.Items.Count == 1)
                                 {
-                                    label.Content = "1 player";
+                                    label.Content = "1 Player";
                                 }
                                 else
                                 {
-                                    label.Content = "No players";
+                                    label.Content = "No Players";
                                 }
 
 
@@ -196,11 +196,11 @@ namespace CBLServerWrapper
 
                                 string player = ChatTools.FilterCommand(ServerManager.LastRecievedMessage).Split(new string[] { "lost connection" }, StringSplitOptions.None)[0].Trim();
                                 ServerManager.LoggedInPlayers.Remove(player);
-                                foreach (ListBoxItem item in listBox1.Items)
+                                foreach (object item in listBox1.Items)
                                 {
                                     try
                                     {
-                                        if (item.Content.ToString() == player)
+                                        if (((ListBoxItem)item).Content.ToString() == player)
                                         {
                                             listBox1.Items.Remove(item);
                                         }
@@ -209,15 +209,15 @@ namespace CBLServerWrapper
                                 }
                                 if (listBox1.Items.Count > 1)
                                 {
-                                    label.Content = listBox1.Items.Count + "players";
+                                    label.Content = listBox1.Items.Count + "Players";
                                 }
                                 else if (listBox1.Items.Count == 1)
                                 {
-                                    label.Content = "1 player";
+                                    label.Content = "1 Player";
                                 }
                                 else
                                 {
-                                    label.Content = "No players";
+                                    label.Content = "No Players";
                                 }
                             }
                         }
