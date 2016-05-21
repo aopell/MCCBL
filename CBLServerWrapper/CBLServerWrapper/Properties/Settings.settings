@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CBLServerWrapper.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MinRAM" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1G</Value>
+    </Setting>
+    <Setting Name="MaxRAM" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1G</Value>
+    </Setting>
+    <Setting Name="LastSelector" Type="System.String" Scope="User">
+      <Value Profile="(Default)">@a[score_importCommands_min=1]</Value>
+    </Setting>
+    <Setting Name="FSRoot" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>

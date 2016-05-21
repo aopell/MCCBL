@@ -45,6 +45,7 @@
             this.propertiesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.whitelistMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importCommandBlockLanguageFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.batchImportCommandBlockLanguageFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serverOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.minRamHelpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,7 +67,6 @@
             this.aToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.serverManagerBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.batchImportCommandBlockLanguageFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ChooseFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.MainWindowToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.serverManagerBindingSource)).BeginInit();
@@ -255,6 +255,15 @@
             this.importCommandBlockLanguageFileToolStripMenuItem.Tag = "Disabled";
             this.importCommandBlockLanguageFileToolStripMenuItem.Text = "Import CommandBlock Language File";
             this.importCommandBlockLanguageFileToolStripMenuItem.Click += new System.EventHandler(this.importCommandBlockLanguageFileToolStripMenuItem_Click);
+            // 
+            // batchImportCommandBlockLanguageFilesToolStripMenuItem
+            // 
+            this.batchImportCommandBlockLanguageFilesToolStripMenuItem.BackColor = System.Drawing.Color.DimGray;
+            this.batchImportCommandBlockLanguageFilesToolStripMenuItem.ForeColor = System.Drawing.Color.LightCoral;
+            this.batchImportCommandBlockLanguageFilesToolStripMenuItem.Name = "batchImportCommandBlockLanguageFilesToolStripMenuItem";
+            this.batchImportCommandBlockLanguageFilesToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
+            this.batchImportCommandBlockLanguageFilesToolStripMenuItem.Text = "Batch Import CommandBlock Language Files";
+            this.batchImportCommandBlockLanguageFilesToolStripMenuItem.Click += new System.EventHandler(this.batchImportCommandBlockLanguageFilesToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
@@ -458,15 +467,6 @@
             // serverManagerBindingSource
             // 
             this.serverManagerBindingSource.DataSource = typeof(CommandBlockLanguageInterpreter.ServerManager);
-            // 
-            // batchImportCommandBlockLanguageFilesToolStripMenuItem
-            // 
-            this.batchImportCommandBlockLanguageFilesToolStripMenuItem.BackColor = System.Drawing.Color.DimGray;
-            this.batchImportCommandBlockLanguageFilesToolStripMenuItem.ForeColor = System.Drawing.Color.LightCoral;
-            this.batchImportCommandBlockLanguageFilesToolStripMenuItem.Name = "batchImportCommandBlockLanguageFilesToolStripMenuItem";
-            this.batchImportCommandBlockLanguageFilesToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
-            this.batchImportCommandBlockLanguageFilesToolStripMenuItem.Text = "Batch Import CommandBlock Language Files";
-            this.batchImportCommandBlockLanguageFilesToolStripMenuItem.Click += new System.EventHandler(this.batchImportCommandBlockLanguageFilesToolStripMenuItem_Click);
             // 
             // ChooseFolderDialog
             // 

@@ -1,0 +1,29 @@
+﻿<Window x:Class="CBLServerWrapper.PlayerControls"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CBLServerWrapper"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        Title="Player Controls" Height="285.381" Width="646.417" FontFamily="Roboto" ResizeMode="NoResize" Icon="Iso_Computer.ico">
+    <Grid x:Name="grid">
+        <Rectangle Fill="#FF00BCD4" Height="75" Stroke="#FF00BCD4" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="33" Margin="10,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="620" TextChanged="textBox_TextChanged" FontSize="14"/>
+        <Button x:Name="button" Content="OP" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="120" Height="45" FontFamily="Roboto" FontSize="14" Background="#FF00BCD4" BorderBrush="#FF00BCD4" Foreground="White" Click="button_Click" FontWeight="Normal"/>
+        <Button x:Name="button_Copy" Content="De-OP" HorizontalAlignment="Left" Margin="135,96,0,0" VerticalAlignment="Top" Width="120" Height="45" FontFamily="Roboto" FontSize="14" Background="#FF00BCD4" BorderBrush="#FF00BCD4" Foreground="White" Click="button_Copy_Click" FontWeight="Normal"/>
+        <Button x:Name="button_Copy1" Content="Whitelist+" HorizontalAlignment="Left" Margin="260,96,0,0" VerticalAlignment="Top" Width="120" Height="45" FontFamily="Roboto" FontSize="14" Background="#FF00BCD4" BorderBrush="#FF00BCD4" Foreground="White" Click="button_Copy1_Click" FontWeight="Normal"/>
+        <Button x:Name="button_Copy2" Content="Whitelist-" HorizontalAlignment="Left" Margin="385,96,0,0" VerticalAlignment="Top" Width="120" Height="45" FontFamily="Roboto" FontSize="14" Background="#FF00BCD4" BorderBrush="#FF00BCD4" Foreground="White" Click="button_Copy2_Click" FontWeight="Normal"/>
+        <Button x:Name="button_Copy3" Content="Kill" HorizontalAlignment="Left" Margin="510,96,0,0" VerticalAlignment="Top" Width="120" Height="45" FontFamily="Roboto" FontSize="14" Background="#FF00BCD4" BorderBrush="#FF00BCD4" Foreground="White" Click="button_Copy3_Click" FontWeight="Normal"/>
+        <Button x:Name="button_Copy4" Content="Tell" HorizontalAlignment="Left" Margin="10,184,0,0" VerticalAlignment="Top" Width="120" Height="45" FontFamily="Roboto" FontSize="14" Uid="REQUIRE" IsEnabled="False" Background="#FF00BCD4" BorderBrush="#FF00BCD4" Foreground="White" Click="button_Copy4_Click" FontWeight="Normal"/>
+        <Button x:Name="button_Copy5" Content="Execute" HorizontalAlignment="Left" Margin="135,184,0,0" VerticalAlignment="Top" Width="120" Height="45" FontFamily="Roboto" FontSize="14" Uid="REQUIRE" IsEnabled="False" Background="#FF00BCD4" BorderBrush="#FF00BCD4" Foreground="White" Click="button_Copy5_Click" FontWeight="Normal"/>
+        <Button x:Name="button_Copy6" Content="Kick" HorizontalAlignment="Left" Margin="260,184,0,0" VerticalAlignment="Top" Width="120" Height="45" FontFamily="Roboto" FontSize="14" Uid="REQUIRE" IsEnabled="False" Background="#FF00BCD4" BorderBrush="#FF00BCD4" Foreground="White" Click="button_Copy6_Click" FontWeight="Normal"/>
+        <Button x:Name="button_Copy7" Content="Ban" HorizontalAlignment="Left" Margin="385,184,0,0" VerticalAlignment="Top" Width="120" Height="45" FontFamily="Roboto" FontSize="14" Uid="REQUIRE" IsEnabled="False" Background="#FF00BCD4" BorderBrush="#FF00BCD4" Foreground="White" Click="button_Copy7_Click" FontWeight="Normal"/>
+        <Button x:Name="button_Copy8" Content="IP Ban" Margin="510,184,0,0" VerticalAlignment="Top" Height="45" FontFamily="Roboto" FontSize="14" Uid="REQUIRE" IsEnabled="False" Background="#FF00BCD4" BorderBrush="#FF00BCD4" Foreground="White" Click="button_Copy8_Click" FontWeight="Normal" HorizontalAlignment="Left" Width="120"/>
+        <Label x:Name="label" Content="Label" Margin="10,0,0,0" FontFamily="Roboto" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="White" FontSize="36" Height="75" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
