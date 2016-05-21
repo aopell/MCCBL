@@ -108,6 +108,6 @@
         <Button x:Name="button" Content="RUN" Margin="0,0,10,12" Height="36" Background="{DynamicResource PrimaryHueMidBrush}" BorderBrush="{DynamicResource PrimaryHueMidBrush}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" FontFamily="Roboto" IsDefault="True" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="65" Click="SendCommandButton_Click" FontSize="14" FontWeight="Normal"/>
         <TextBox x:Name="CommandInput" Margin="121,0,80,10" TextWrapping="Wrap" Height="36" VerticalAlignment="Bottom" KeyUp="CommandInput_KeyUp" FontSize="14"/>
         <ListBox x:Name="listBox1" HorizontalAlignment="Left" Margin="10,100,0,12" Width="106"/>
-        <Label x:Name="label" Content="Server offline" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="110"  Foreground="{DynamicResource MaterialDesignBody}" FontWeight="Bold"/>
+        <Label x:Name="label" Content="Server Offline" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="110"  Foreground="{DynamicResource MaterialDesignBody}" FontWeight="Bold"/>
     </Grid>
 </Window>
