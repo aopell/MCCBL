@@ -29,8 +29,8 @@ namespace CBLServerWrapper
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             label3.Content = "Version " + Assembly.GetExecutingAssembly().GetName().Version.Major.ToString() + "." + Assembly.GetExecutingAssembly().GetName().Version.Minor.ToString() + "." + Assembly.GetExecutingAssembly().GetName().Version.Build.ToString() + " by aopell";
-            label5.Content = "This project is open source under the MIT license.\nClick view source below to see the source code.";
-            label6.Content = "This project uses the MaterialDesignInXamlToolkit.\nClick material design below to see license info.";
+            label5.Content = "This project is open source under the MIT license.\nClick view source below to see the source code";
+            label6.Content = "This project uses the MaterialDesignInXamlToolkit.\nClick material design below to see license info";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
