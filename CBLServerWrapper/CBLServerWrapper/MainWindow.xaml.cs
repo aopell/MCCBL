@@ -62,7 +62,7 @@ namespace CBLServerWrapper
 
                 //Server starts here
                 ServerManager.StartServer(ChooseFileDialog.FileName, this);
-                label.Content = "No Players";
+                label.Content = "No players";
                 listBox1.Items.Clear();
                 serverStart.IsEnabled = false;
                 toolsMenu.IsEnabled = true;
@@ -89,7 +89,7 @@ namespace CBLServerWrapper
                     ConsoleWindow.ScrollToEnd();
 
                     listBox1.Items.Clear();
-                    label.Content = "Server Offline";
+                    label.Content = "Server offline";
 
                     serverStart.IsEnabled = true;
                     toolsMenu.IsEnabled = false;
@@ -158,21 +158,21 @@ namespace CBLServerWrapper
                                 listBox1.Items.Add(item);
                                 if (listBox1.Items.Count > 1)
                                 {
-                                    label.Content = listBox1.Items.Count + "Players";
+                                    label.Content = listBox1.Items.Count + "players";
                                 }
                                 else if (listBox1.Items.Count == 1)
                                 {
-                                    label.Content = "1 Player";
+                                    label.Content = "1 player";
                                 }
                                 else
                                 {
-                                    label.Content = "No Players";
+                                    label.Content = "No players";
                                 }
 
 
                                 if (File.Exists(ServerManager.MinecraftServer.StartInfo.WorkingDirectory + "\\motd.mccbl"))
                                 {
-                                    SendCommand(ChatTools.Tellraw("@a[score_motd_min=1]", TellrawColor.white, "Recent Chat History:"));
+                                    SendCommand(ChatTools.Tellraw("@a[score_motd_min=1]", TellrawColor.white, "Recent chat history:"));
                                     for (int i = 11; i > 0; i--)
                                     {
                                         try
@@ -209,15 +209,15 @@ namespace CBLServerWrapper
                                 }
                                 if (listBox1.Items.Count > 1)
                                 {
-                                    label.Content = listBox1.Items.Count + "Players";
+                                    label.Content = listBox1.Items.Count + "players";
                                 }
                                 else if (listBox1.Items.Count == 1)
                                 {
-                                    label.Content = "1 Player";
+                                    label.Content = "1 player";
                                 }
                                 else
                                 {
-                                    label.Content = "No Players";
+                                    label.Content = "No players";
                                 }
                             }
                         }
@@ -284,7 +284,7 @@ namespace CBLServerWrapper
                                     string link = chatMessage.CommandArgument("@!import");
                                     CBLInterpreter interpreter = new CBLInterpreter(this, link, true, ChatTools.FilterUsername(ChatTools.FilterCommand(ServerManager.LastRecievedMessage)));
                                     ConsoleWindow.AppendColoredText("\rRemote Importing from " + link, new SolidColorBrush(Color.FromRgb(62, 80, 180)));
-                                    SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.gold, TellrawColor.aqua, TellrawColor.gold, TellrawColor.aqua }, new string[] { "Remote Importing from ", link, " as ", "Remote Import.mccbl" }));
+                                    SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.gold, TellrawColor.aqua, TellrawColor.gold, TellrawColor.aqua }, new string[] { "Remote importing from ", link, " as ", "Remote Import.mccbl" }));
                                     //SendCommand("say §6Remote §6Importing §6from §b§l" + link + " §6as §b§lRemote §b§lImport.mccbl");
                                     CBLFile importer = interpreter.Interpret(link);
                                     if (importer != null && importer.Import(this))
@@ -292,7 +292,7 @@ namespace CBLServerWrapper
                                         ConsoleWindow.AppendColoredText("\rSuccessfully imported " + interpreter.commands.Count + " commands", new SolidColorBrush(Color.FromRgb(62, 80, 180)));
                                         SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.green, TellrawColor.yellow, TellrawColor.green }, new string[] { "Successfully imported ", interpreter.commands.Count.ToString(), " commands" }));
                                         //SendCommand("say §aSuccessfully §aimported §e§l" + interpreter.commands.Count + " §acommands");
-                                        SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "Don't forget to enable the first Command Block if necessary"));
+                                        SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "Don't forget to enable the first command block if necessary"));
                                         //SendCommand("say §c§l§nDon't §c§l§nforget §cto §cenable §cthe §cfirst §cCommand §cBlock §cif §cnecessary");
                                     }
                                 }
@@ -375,11 +375,11 @@ namespace CBLServerWrapper
                                         List<string> fileLines = File.ReadAllLines(path).ToList();
                                         fileLines.RemoveAt(line);
                                         File.WriteAllLines(path, fileLines);
-                                        SendCommand(ChatTools.Tellraw(user, TellrawColor.green, "Successfully deleted line " + line));
+                                        SendCommand(ChatTools.Tellraw(user, TellrawColor.green, "Deleted line " + line));
                                     }
                                     catch (Exception ex)
                                     {
-                                        SendCommand(ChatTools.Tellraw(user, TellrawColor.red, "Failed to delete line: " + ex.Message));
+                                        SendCommand(ChatTools.Tellraw(user, TellrawColor.red, "Couldn't delete line: " + ex.Message));
                                     }
                                 }
                                 //Shows all commands, their syntax, and their description
@@ -389,12 +389,12 @@ namespace CBLServerWrapper
                                 //TODO: @!help import
                                 else if (chatMessage.TrimStart().StartsWith("@!help"))
                                 {
-                                    SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, "@!import [link|filepath]: Imports a remote MCCBL File"));
+                                    SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, "@!import [link|filepath]: Imports a remote MCCBL file"));
                                     SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, "@!reimport [selector]: Reimports last locally imported file (no links)"));
                                     SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, "@!restart: Restarts the server"));
-                                    SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, "@!addtext | @!addline [text]: Adds a line of text to the server text file"));
-                                    SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, "@!viewtext [page]: Shows a page from the server text file"));
-                                    SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, "@!delline [line number]: Deletes a line of text from the server text file"));
+                                    SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, "@!addtext | @!addline [text]: Adds a line of text to the server notes"));
+                                    SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, "@!viewtext [page]: Shows a page of the server notes"));
+                                    SendCommand(ChatTools.Tellraw(user, TellrawColor.yellow, "@!delline [line number]: Deletes a line of text from the server notes"));
 
                                     foreach (CBLFile customCommand in CustomCommands.Values)
                                     {
@@ -406,7 +406,7 @@ namespace CBLServerWrapper
                                 //If no command was found, tell user it doesn't exist
                                 else if (!wasUserMade)
                                 {
-                                    SendCommand(ChatTools.Tellraw(user, TellrawColor.red, "[ERROR] Unknown Command or Bad Syntax, Type @!help for help"));
+                                    SendCommand(ChatTools.Tellraw(user, TellrawColor.red, "[ERROR] Unknown command or bad syntax, Type @!help for help"));
                                 }
                             }
 
@@ -585,12 +585,12 @@ namespace CBLServerWrapper
                     }
                     else
                     {
-                        SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "[ERROR] Import was cancelled or failed"));
+                        SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "Import was cancelled or failed"));
                     }
                 }
                 else
                 {
-                    SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "[ERROR] Import was cancelled or failed"));
+                    SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "Import was cancelled or failed"));
                 }
             }
             else
@@ -598,7 +598,7 @@ namespace CBLServerWrapper
                 //Reimports the previously imported commands
                 if (ChooseFileDialog.SafeFileName.EndsWith(".mccbl"))
                 {
-                    CBLInterpreter interpreter = new CBLInterpreter(this, ChooseFileDialog.SafeFileName, false, selector ?? Settings.Default.LastSelector);
+                    CBLInterpreter interpreter = new CBLInterpreter(this, ChooseFileDialog.SafeFileName, false, selector ?? Properties.Settings.Default.LastSelector);
                     ConsoleWindow.AppendText("Reimporting " + ChooseFileDialog.SafeFileName);
                     SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.gold, TellrawColor.aqua }, new string[] { "Reimporting ", ChooseFileDialog.SafeFileName }));
                     //SendCommand("say §6Reimporting §b§l" + ChooseFileDialog.SafeFileName);
@@ -613,12 +613,12 @@ namespace CBLServerWrapper
                     }
                     else
                     {
-                        SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "[ERROR] Reimport was cancelled or failed"));
+                        SendCommand(ChatTools.Tellraw("@a", TellrawColor.red, "Reimport was cancelled or failed"));
                     }
                 }
                 else
                 {
-                    SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.red, TellrawColor.aqua, TellrawColor.red }, new string[] { "Reimporting ", ChooseFileDialog.SafeFileName, " Failed!" }));
+                    SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.red, TellrawColor.aqua, TellrawColor.red }, new string[] { "Reimporting ", ChooseFileDialog.SafeFileName, " failed" }));
                     //SendCommand("say §cReimporting §b§l" + ChooseFileDialog.SafeFileName + " §cFailed!");
                 }
             }
@@ -629,9 +629,11 @@ namespace CBLServerWrapper
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void serverStop_Click(object sender, RoutedEventArgs e)
+        private async void serverStop_Click(object sender, RoutedEventArgs e)
         {
-            if (serverStop.IsEnabled && MessageBox.Show("Are you sure you want to stop the server?", "Stop Server?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            StopDial dialog = new StopDial();
+            await DialogHost.Show(dialog, "StopServer");
+            if (StopDial.shouldStop == true)
             {
                 ServerManager.Restart = false;
                 ServerManager.Switch = false;
@@ -643,7 +645,6 @@ namespace CBLServerWrapper
                 toolsMenu.IsEnabled = false;
             }
         }
-
         /// <summary>
         /// Activates when you click the start server button
         /// </summary>
@@ -694,8 +695,8 @@ namespace CBLServerWrapper
         /// <param name="e"></param>
         private void minRAM_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Settings.Default.MinRAM = minRAM.Text;
-            Settings.Default.Save();
+            Properties.Settings.Default.MinRAM = minRAM.Text;
+            Properties.Settings.Default.Save();
         }
 
         /// <summary>
@@ -705,8 +706,8 @@ namespace CBLServerWrapper
         /// <param name="e"></param>
         private void maxRAM_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Settings.Default.MaxRAM = maxRAM.Text;
-            Settings.Default.Save();
+            Properties.Settings.Default.MaxRAM = maxRAM.Text;
+            Properties.Settings.Default.Save();
         }
 
         /// <summary>
@@ -716,8 +717,8 @@ namespace CBLServerWrapper
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            minRAM.Text = Settings.Default.MinRAM;
-            maxRAM.Text = Settings.Default.MaxRAM;
+            minRAM.Text = Properties.Settings.Default.MinRAM;
+            maxRAM.Text = Properties.Settings.Default.MaxRAM;
         }
 
         /// <summary>
@@ -750,9 +751,11 @@ namespace CBLServerWrapper
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void serverRestart_Click(object sender, RoutedEventArgs e)
+        private async void serverRestart_Click(object sender, RoutedEventArgs e)
         {
-            if (serverRestart.IsEnabled && MessageBox.Show("Are you sure you want to restart?", "Confirm Restart", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            RestartDial dialog = new RestartDial();
+            await DialogHost.Show(dialog, "RestartServer");
+            if (RestartDial.shouldRestsrt == true)
             {
                 ServerManager.Restart = true;
                 Close();
@@ -764,9 +767,11 @@ namespace CBLServerWrapper
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void serverSwitch_Click(object sender, RoutedEventArgs e)
+        private async void serverSwitch_Click(object sender, RoutedEventArgs e)
         {
-            if (serverSwitch.IsEnabled && MessageBox.Show("Are you sure you want to switch servers?", "Confirm Switch Server", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            SwitchDial dialog = new SwitchDial();
+            await DialogHost.Show(dialog, "SwitchServer");
+            if (SwitchDial.shouldSwitch == true)
             {
                 ServerManager.Switch = true;
                 Close();
@@ -791,7 +796,7 @@ namespace CBLServerWrapper
         /// <param name="e"></param>
         private void optionsOptions_Click(object sender, RoutedEventArgs e)
         {
-            //(new ServerSettingsWindow()).Show();
+            //(new ServerProperties.SettingsWindow()).Show();
             MessageBox.Show("Not Yet Implemented - Working on it!");
         }
 

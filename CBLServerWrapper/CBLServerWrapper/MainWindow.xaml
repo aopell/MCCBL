@@ -15,7 +15,9 @@
     <Grid>
 
         <materialDesign:DialogHost Identifier="ADialogBox"/>
-
+        <materialDesign:DialogHost Identifier="StopServer"/>
+        <materialDesign:DialogHost Identifier="SwitchServer"/>
+        <materialDesign:DialogHost Identifier="RestartServer"/>
         <Menu x:Name="toolStrip" IsMainMenu="True" DockPanel.Dock="Top" Background="{DynamicResource PrimaryHueMidBrush}" Height="58" VerticalAlignment="Top">
             <MenuItem x:Name="serverMenu" Header="Server" Height="{Binding ActualHeight, ElementName=toolStrip, Mode=OneWay}" Margin="5,0,0,0" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" FontSize="18" >
                 <MenuItem x:Name="serverStart" Header="Start" Click="serverStart_Click" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
@@ -35,7 +37,7 @@
                 </MenuItem>
                 <MenuItem x:Name="serverSwitch" Header="Switch" IsEnabled="False" Click="serverSwitch_Click" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
                     <MenuItem.Icon>
-                        <materialDesign:PackIcon Kind="OpenInNew" />
+                        <materialDesign:PackIcon Kind="Shuffle" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
@@ -108,6 +110,6 @@
         <Button x:Name="button" Content="RUN" Margin="0,0,10,12" Height="36" Background="{DynamicResource PrimaryHueMidBrush}" BorderBrush="{DynamicResource PrimaryHueMidBrush}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" FontFamily="Roboto" IsDefault="True" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="65" Click="SendCommandButton_Click" FontSize="14" FontWeight="Normal"/>
         <TextBox x:Name="CommandInput" Margin="121,0,80,10" TextWrapping="Wrap" Height="36" VerticalAlignment="Bottom" KeyUp="CommandInput_KeyUp" FontSize="14"/>
         <ListBox x:Name="listBox1" HorizontalAlignment="Left" Margin="10,100,0,12" Width="106"/>
-        <Label x:Name="label" Content="Server Offline" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="110"  Foreground="{DynamicResource MaterialDesignBody}" FontWeight="Bold"/>
+        <Label x:Name="label" Content="Server offline" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="110"  Foreground="{DynamicResource MaterialDesignBody}" FontWeight="Bold"/>
     </Grid>
 </Window>
