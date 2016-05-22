@@ -6,17 +6,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CBLServerWrapper
 {
@@ -495,7 +488,7 @@ namespace CBLServerWrapper
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             //Cancels closing the window if server is restarting or switching
             if (ServerManager.Switch || ServerManager.Restart)
@@ -510,8 +503,13 @@ namespace CBLServerWrapper
 
                 try
                 {
-                    ServerManager.MinecraftServer.StandardInput.WriteLine("stop");
-                    ServerManager.MinecraftServer.StandardInput.Flush();
+                    StopDialog stopDialog = new StopDialog();
+                    await DialogHost.Show(stopDialog, "ServerStop");
+                    if (stopDialog.ShouldStop)
+                    {
+                        ServerManager.MinecraftServer.StandardInput.WriteLine("stop");
+                        ServerManager.MinecraftServer.StandardInput.Flush();
+                    }
                 }
                 catch { }
             }
@@ -598,7 +596,7 @@ namespace CBLServerWrapper
                 //Reimports the previously imported commands
                 if (ChooseFileDialog.SafeFileName.EndsWith(".mccbl"))
                 {
-                    CBLInterpreter interpreter = new CBLInterpreter(this, ChooseFileDialog.SafeFileName, false, selector ?? Properties.Settings.Default.LastSelector);
+                    CBLInterpreter interpreter = new CBLInterpreter(this, ChooseFileDialog.SafeFileName, false, selector ?? Settings.Default.LastSelector);
                     ConsoleWindow.AppendText("Reimporting " + ChooseFileDialog.SafeFileName);
                     SendCommand(ChatTools.MultiTellraw("@a", new TellrawColor[] { TellrawColor.gold, TellrawColor.aqua }, new string[] { "Reimporting ", ChooseFileDialog.SafeFileName }));
                     //SendCommand("say §6Reimporting §b§l" + ChooseFileDialog.SafeFileName);
@@ -631,9 +629,9 @@ namespace CBLServerWrapper
         /// <param name="e"></param>
         private async void serverStop_Click(object sender, RoutedEventArgs e)
         {
-            StopDial dialog = new StopDial();
+            StopDialog dialog = new StopDialog();
             await DialogHost.Show(dialog, "StopServer");
-            if (StopDial.shouldStop == true)
+            if (dialog.ShouldStop)
             {
                 ServerManager.Restart = false;
                 ServerManager.Switch = false;
@@ -695,8 +693,8 @@ namespace CBLServerWrapper
         /// <param name="e"></param>
         private void minRAM_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Properties.Settings.Default.MinRAM = minRAM.Text;
-            Properties.Settings.Default.Save();
+            Settings.Default.MinRAM = minRAM.Text;
+            Settings.Default.Save();
         }
 
         /// <summary>
@@ -706,8 +704,8 @@ namespace CBLServerWrapper
         /// <param name="e"></param>
         private void maxRAM_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Properties.Settings.Default.MaxRAM = maxRAM.Text;
-            Properties.Settings.Default.Save();
+            Settings.Default.MaxRAM = maxRAM.Text;
+            Settings.Default.Save();
         }
 
         /// <summary>
@@ -717,8 +715,8 @@ namespace CBLServerWrapper
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            minRAM.Text = Properties.Settings.Default.MinRAM;
-            maxRAM.Text = Properties.Settings.Default.MaxRAM;
+            minRAM.Text = Settings.Default.MinRAM;
+            maxRAM.Text = Settings.Default.MaxRAM;
         }
 
         /// <summary>
@@ -753,9 +751,9 @@ namespace CBLServerWrapper
         /// <param name="e"></param>
         private async void serverRestart_Click(object sender, RoutedEventArgs e)
         {
-            RestartDial dialog = new RestartDial();
+            RestartDialog dialog = new RestartDialog();
             await DialogHost.Show(dialog, "RestartServer");
-            if (RestartDial.shouldRestsrt == true)
+            if (dialog.ShouldRestart)
             {
                 ServerManager.Restart = true;
                 Close();
@@ -769,9 +767,9 @@ namespace CBLServerWrapper
         /// <param name="e"></param>
         private async void serverSwitch_Click(object sender, RoutedEventArgs e)
         {
-            SwitchDial dialog = new SwitchDial();
+            SwitchDialog dialog = new SwitchDialog();
             await DialogHost.Show(dialog, "SwitchServer");
-            if (SwitchDial.shouldSwitch == true)
+            if (dialog.ShouldSwitch)
             {
                 ServerManager.Switch = true;
                 Close();
@@ -796,7 +794,7 @@ namespace CBLServerWrapper
         /// <param name="e"></param>
         private void optionsOptions_Click(object sender, RoutedEventArgs e)
         {
-            //(new ServerProperties.SettingsWindow()).Show();
+            //(new ServerSettingsWindow()).Show();
             MessageBox.Show("Not Yet Implemented - Working on it!");
         }
 

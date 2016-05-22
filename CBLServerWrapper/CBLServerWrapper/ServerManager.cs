@@ -1,10 +1,9 @@
-﻿using System;
+﻿using CBLServerWrapper.Properties;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace CBLServerWrapper
 {
@@ -25,7 +24,7 @@ namespace CBLServerWrapper
         {
             MinecraftServer = new Process();
             MinecraftServer.StartInfo.WorkingDirectory = Path.GetDirectoryName(Restart ? ServerJarPath : fileName);
-            MinecraftServer.StartInfo.Arguments = string.Format("-Xmx{0} -Xms{1} -jar \"" + (Restart ? ServerJarPath : fileName) + "\" nogui", Properties.Settings.Default.MaxRAM, Properties.Settings.Default.MinRAM);
+            MinecraftServer.StartInfo.Arguments = string.Format("-Xmx{0} -Xms{1} -jar \"" + (Restart ? ServerJarPath : fileName) + "\" nogui", Settings.Default.MaxRAM, Settings.Default.MinRAM);
             MinecraftServer.StartInfo.FileName = "java";
             MinecraftServer.StartInfo.UseShellExecute = false;
             MinecraftServer.StartInfo.RedirectStandardOutput = true;
