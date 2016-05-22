@@ -11,7 +11,7 @@
     <Grid>
         <materialDesign:PackIcon Kind="Shuffle" Margin="10,10,0,0" Height="24" />
         <Label x:Name="theQuestion2" Content="Change server?" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="31,10,0,0"/>
-        <Button x:Name="cancel2" Content="CANCEL" Margin="0,0,63,10" Width="Auto" Style="{DynamicResource MaterialDesignFlatButton}" Height="36" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Click="cancel2_Click" IsDefault="True"/>
-        <Button x:Name="ok2" Content="OK" Margin="0,0,10,10" Width="Auto" Style="{DynamicResource MaterialDesignFlatButton}" Height="36" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Click="ok2_Click"/>
+        <Button x:Name="cancel2" Content="CANCEL" Margin="0,0,63,10" Width="Auto" Style="{DynamicResource MaterialDesignFlatButton}" Height="36" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Click="cancel2_Click" IsCancel="True"/>
+        <Button x:Name="ok2" Content="OK" Margin="0,0,10,10" Width="Auto" Style="{DynamicResource MaterialDesignFlatButton}" Height="36" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Click="ok2_Click" IsDefault="True"/>
     </Grid>
 </UserControl>

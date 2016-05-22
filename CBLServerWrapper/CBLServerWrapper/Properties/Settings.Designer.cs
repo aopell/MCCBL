@@ -26,49 +26,21 @@ namespace CBLServerWrapper.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1G")]
-        public string MinRAM {
-            get {
-                return ((string)(this["MinRAM"]));
-            }
-            set {
-                this["MinRAM"] = value;
-            }
-        }
+        public string MinRAM { get; set; }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1G")]
-        public string MaxRAM {
-            get {
-                return ((string)(this["MaxRAM"]));
-            }
-            set {
-                this["MaxRAM"] = value;
-            }
-        }
+        public string MaxRAM { get; set; }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("@a[score_importCommands_min=1]")]
-        public string LastSelector {
-            get {
-                return ((string)(this["LastSelector"]));
-            }
-            set {
-                this["LastSelector"] = value;
-            }
-        }
+        public string LastSelector { get; set; }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FSRoot {
-            get {
-                return ((string)(this["FSRoot"]));
-            }
-            set {
-                this["FSRoot"] = value;
-            }
-        }
+        public string FSRoot { get; set; }
     }
 }

@@ -55,6 +55,7 @@ namespace CBLServerWrapper
 
                 //Server starts here
                 ServerManager.StartServer(ChooseFileDialog.FileName, this);
+                button.ToolTip = "Run command";
                 label.Content = "No players";
                 listBox1.Items.Clear();
                 serverStart.IsEnabled = false;
@@ -83,7 +84,8 @@ namespace CBLServerWrapper
 
                     listBox1.Items.Clear();
                     label.Content = "Server offline";
-
+                    button.ToolTip = "Start server";
+                    Title = ServerManager.defaultWindowTitle;
                     serverStart.IsEnabled = true;
                     toolsMenu.IsEnabled = false;
                     toolsImport.IsEnabled = false;
@@ -151,7 +153,7 @@ namespace CBLServerWrapper
                                 listBox1.Items.Add(item);
                                 if (listBox1.Items.Count > 1)
                                 {
-                                    label.Content = listBox1.Items.Count + "players";
+                                    label.Content = listBox1.Items.Count + " players";
                                 }
                                 else if (listBox1.Items.Count == 1)
                                 {
@@ -165,7 +167,7 @@ namespace CBLServerWrapper
 
                                 if (File.Exists(ServerManager.MinecraftServer.StartInfo.WorkingDirectory + "\\motd.mccbl"))
                                 {
-                                    SendCommand(ChatTools.Tellraw("@a[score_motd_min=1]", TellrawColor.white, "Recent chat history:"));
+                                    SendCommand(ChatTools.Tellraw("@a[score_motd_min=1]", TellrawColor.white, "Recent chat:"));
                                     for (int i = 11; i > 0; i--)
                                     {
                                         try
@@ -202,7 +204,7 @@ namespace CBLServerWrapper
                                 }
                                 if (listBox1.Items.Count > 1)
                                 {
-                                    label.Content = listBox1.Items.Count + "players";
+                                    label.Content = listBox1.Items.Count + " players";
                                 }
                                 else if (listBox1.Items.Count == 1)
                                 {
@@ -470,7 +472,11 @@ namespace CBLServerWrapper
         /// <param name="e"></param>
         private void SendCommandButton_Click(object sender, RoutedEventArgs e)
         {
-            if (CommandInput.Text.Trim() != "" && ServerManager.MinecraftServer != null)
+            if (ServerManager.MinecraftServer == null)
+            {
+                StartServer();
+            }
+            else if (CommandInput.Text.Trim() != "")
             {
                 ServerManager.HistoryIndex = -1;
                 ServerManager.MinecraftServer.StandardInput.WriteLine(CommandInput.Text);
@@ -488,30 +494,13 @@ namespace CBLServerWrapper
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //Cancels closing the window if server is restarting or switching
-            if (ServerManager.Switch || ServerManager.Restart)
-            {
-                e.Cancel = true;
-                SendCommand("stop");
-            }
             //Stops a currently running server and cancels closing
-            else if (!forceClose && ServerManager.MinecraftServer != null)
+            if (!forceClose && ServerManager.MinecraftServer != null)
             {
                 e.Cancel = true;
-
-                try
-                {
-                    StopDialog stopDialog = new StopDialog();
-                    await DialogHost.Show(stopDialog, "ServerStop");
-                    if (stopDialog.ShouldStop)
-                    {
-                        ServerManager.MinecraftServer.StandardInput.WriteLine("stop");
-                        ServerManager.MinecraftServer.StandardInput.Flush();
-                    }
-                }
-                catch { }
+                serverStop_Click();
             }
 
             //Closes if no server is running
@@ -627,7 +616,7 @@ namespace CBLServerWrapper
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void serverStop_Click(object sender, RoutedEventArgs e)
+        private async void serverStop_Click(object sender = null, RoutedEventArgs e = null)
         {
             StopDialog dialog = new StopDialog();
             await DialogHost.Show(dialog, "StopServer");
@@ -635,7 +624,7 @@ namespace CBLServerWrapper
             {
                 ServerManager.Restart = false;
                 ServerManager.Switch = false;
-                Close();
+                SendCommand("stop");
                 serverStart.IsEnabled = true;
                 serverStop.IsEnabled = false;
                 serverRestart.IsEnabled = false;
@@ -756,7 +745,7 @@ namespace CBLServerWrapper
             if (dialog.ShouldRestart)
             {
                 ServerManager.Restart = true;
-                Close();
+                SendCommand("stop");
             }
         }
 
@@ -772,7 +761,7 @@ namespace CBLServerWrapper
             if (dialog.ShouldSwitch)
             {
                 ServerManager.Switch = true;
-                Close();
+                SendCommand("stop");
             }
         }
 
