@@ -98,14 +98,14 @@
     <Compile Include="AboutDialog.xaml.cs">
       <DependentUpon>AboutDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RestartDial.xaml.cs">
-      <DependentUpon>RestartDial.xaml</DependentUpon>
+    <Compile Include="RestartDialog.xaml.cs">
+      <DependentUpon>RestartDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SwitchDial.xaml.cs">
-      <DependentUpon>SwitchDial.xaml</DependentUpon>
+    <Compile Include="SwitchDialog.xaml.cs">
+      <DependentUpon>SwitchDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StopDial.xaml.cs">
-      <DependentUpon>StopDial.xaml</DependentUpon>
+    <Compile Include="StopDialog.xaml.cs">
+      <DependentUpon>StopDialog.xaml</DependentUpon>
     </Compile>
     <Page Include="HelpWindow.xaml">
       <SubType>Designer</SubType>
@@ -144,15 +144,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RestartDial.xaml">
+    <Page Include="RestartDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SwitchDial.xaml">
+    <Page Include="SwitchDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="StopDial.xaml">
+    <Page Include="StopDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
