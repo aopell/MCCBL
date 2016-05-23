@@ -57,6 +57,11 @@ namespace CBLServerWrapper
                 ServerManager.StartServer(ChooseFileDialog.FileName, this);
                 button.ToolTip = "Run command";
                 label.Content = "No players";
+                fabIcon.Kind = PackIconKind.Send;
+
+                toolStrip.Background = (SolidColorBrush)FindResource("PrimaryHueMidBrush");
+                button.Background = (SolidColorBrush)FindResource("PrimaryHueMidBrush");
+
                 listBox1.Items.Clear();
                 serverStart.IsEnabled = false;
                 toolsMenu.IsEnabled = true;
@@ -83,9 +88,16 @@ namespace CBLServerWrapper
                     ConsoleWindow.ScrollToEnd();
 
                     listBox1.Items.Clear();
+                    fabIcon.Kind = PackIconKind.Console;
                     label.Content = "Server offline";
                     button.ToolTip = "Start server";
-                    Title = ServerManager.defaultWindowTitle;
+
+                    ServerManager.MinecraftServer = null;
+
+                    toolStrip.Background = new SolidColorBrush(Color.FromRgb(243, 66, 53));
+                    button.Background = new SolidColorBrush(Color.FromRgb(243, 66, 53));
+
+                    Title = ServerManager.DefaultWindowTitle;
                     serverStart.IsEnabled = true;
                     toolsMenu.IsEnabled = false;
                     toolsImport.IsEnabled = false;

@@ -14,13 +14,15 @@ namespace CBLServerWrapper
 
         public bool ShouldSwitch;
 
-        private void cancel2_Click(object sender, System.EventArgs e)
+        private void cancel_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             ShouldSwitch = false;
         }
-        private void ok2_Click(object sender, System.EventArgs e)
+
+        private void ok_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             ShouldSwitch = true;
+
         }
     }
 }

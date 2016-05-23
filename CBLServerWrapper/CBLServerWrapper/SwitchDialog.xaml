@@ -7,11 +7,11 @@
              xmlns:local="clr-namespace:CBLServerWrapper"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-             mc:Ignorable="d" Height="150" Width="250">
+             mc:Ignorable="d" Height="180" Width="321">
     <Grid>
-        <materialDesign:PackIcon Kind="Shuffle" Margin="10,10,0,0" Height="24" />
-        <Label x:Name="theQuestion2" Content="Change server?" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="31,10,0,0"/>
-        <Button x:Name="cancel2" Content="CANCEL" Margin="0,0,63,10" Width="Auto" Style="{DynamicResource MaterialDesignFlatButton}" Height="36" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Click="cancel2_Click" IsCancel="True"/>
-        <Button x:Name="ok2" Content="OK" Margin="0,0,10,10" Width="Auto" Style="{DynamicResource MaterialDesignFlatButton}" Height="36" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Click="ok2_Click" IsDefault="True"/>
+        <materialDesign:PackIcon Kind="Shuffle" Margin="0,0,255,103" Height="52" Width="56" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+        <Label x:Name="theQuestion" Content="Switch server?" Margin="0,0,10,103" FontSize="36" Height="52" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="246"/>
+        <Button x:Name="cancel" Content="CANCEL" Width="132" Style="{DynamicResource MaterialDesignFlatButton}" Height="75" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Click="cancel_Click"  IsCancel="True" Margin="0,0,101,10" FontSize="24" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+        <Button x:Name="ok" Content="OK" Margin="0,0,10,10" Style="{DynamicResource MaterialDesignFlatButton}" Height="75" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Click="ok_Click"  IsDefault="True" HorizontalAlignment="Right" Width="86" FontSize="24" VerticalAlignment="Bottom"/>
     </Grid>
 </UserControl>

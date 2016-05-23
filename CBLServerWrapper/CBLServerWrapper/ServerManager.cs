@@ -10,7 +10,7 @@ namespace CBLServerWrapper
 {
     public static class ServerManager
     {
-        public static string defaultWindowTitle = "Server Wrapper";
+        public static string DefaultWindowTitle = "Minecraft Server | Server Offline";
 
         public static Process MinecraftServer = null;
         public static string ServerJarPath;
@@ -48,8 +48,7 @@ namespace CBLServerWrapper
             MinecraftServer.Exited += MinecraftServer_Exited;
             ServerJarPath = fileName;
             ConsoleWindow = mainWindow;
-            GetWorldName(MinecraftServer.StartInfo.WorkingDirectory);
-            mainWindow.Title = MinecraftServer.StartInfo.WorkingDirectory.Split('\\').Last() + " | " + WorldName;
+            mainWindow.Title = "Minecraft Server | " + GetWorldName();
         }
 
         private static void MinecraftServer_ErrorDataReceived(object sender, DataReceivedEventArgs e)
@@ -70,24 +69,17 @@ namespace CBLServerWrapper
         /// Finds the name of the current world
         /// </summary>
         /// <param name="serverDir">Folder where the server is located</param>
-        public static void GetWorldName(string serverDir)
+        public static string GetWorldName()
         {
-
-            try
+            string[] lines = File.ReadAllLines(MinecraftServer.StartInfo.WorkingDirectory + @"\server.properties");
+            foreach (string line in lines)
             {
-                string line;
-                System.IO.StreamReader settingsFile = new System.IO.StreamReader(serverDir + @"\server.properties");
-                while ((line = settingsFile.ReadLine()) != null)
+                if (line.Contains("level-name="))
                 {
-                    string test = line.ToString();
-                    if (test.Contains("level-name="))
-                    {
-                        WorldName = test.Replace("level-name=", "").Trim();
-                    }
+                    return line.Replace("level-name=", "").Trim();
                 }
-                settingsFile.Close();
-            } 
-            catch { }
+            }
+            return "";
         }
     }
 }
