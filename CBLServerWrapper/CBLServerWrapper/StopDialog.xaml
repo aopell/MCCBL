@@ -9,9 +9,9 @@
             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
              mc:Ignorable="d" Height="150" Width="250">
     <Grid>
-        <materialDesign:PackIcon Kind="CloseBoxOutline" Margin="10,10,0,0" Height="24" />
+        <materialDesign:PackIcon Kind="Close" Margin="10,10,0,0" Height="24" />
         <Label x:Name="theQuestion" Content="Stop server?" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="31,10,0,0"/>
-        <Button x:Name="cancel" Content="CANCEL" Margin="0,0,63,10" Width="Auto" Style="{DynamicResource MaterialDesignFlatButton}" Height="36" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Click="cancel_Click" IsDefault="True"/>
-        <Button x:Name="ok" Content="OK" Margin="0,0,10,10" Width="Auto" Style="{DynamicResource MaterialDesignFlatButton}" Height="36" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Click="ok_Click"/>
+        <Button x:Name="cancel" Content="CANCEL" Margin="0,0,63,10" Width="Auto" Style="{DynamicResource MaterialDesignFlatButton}" Height="36" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Click="cancel_Click" IsCancel="True"/>
+        <Button x:Name="ok" Content="OK" Margin="0,0,10,10" Width="Auto" Style="{DynamicResource MaterialDesignFlatButton}" Height="36" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Click="ok_Click"  IsDefault="True"/>
     </Grid>
 </UserControl>

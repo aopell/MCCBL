@@ -11,7 +11,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         Loaded="Window_Loaded"
-        Closing="Window_Closing" Icon="console.ico">
+        Closing="Window_Closing" Icon="console2.ico">
     <Grid>
 
         <materialDesign:DialogHost Identifier="ADialogBox"/>
@@ -27,7 +27,7 @@
                 </MenuItem>
                 <MenuItem x:Name="serverStop" Header="Stop" IsEnabled="False" Click="serverStop_Click" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
                     <MenuItem.Icon>
-                        <materialDesign:PackIcon Kind="CloseBoxOutline" />
+                        <materialDesign:PackIcon Kind="Close" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem x:Name="serverRestart" Header="Restart" IsEnabled="False" Click="serverRestart_Click" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
@@ -77,13 +77,13 @@
                 <Separator />
                 <MenuItem Header="Minimum RAM" InputGestureText="[?]" ToolTip="GB = G; MB = M; For 1GB enter 1G" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" IsEnabled="False">
                     <MenuItem.Icon>
-                        <materialDesign:PackIcon Kind="MinusBox" />
+                        <materialDesign:PackIcon Kind="CodeGreaterThanOrEqual"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <TextBox x:Name="minRAM" Margin="10,0,0,0" Text="1G" Width="150" HorizontalAlignment="Left" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" TextChanged="minRAM_TextChanged"/>
                 <MenuItem Header="Maximum RAM" InputGestureText="[?]" ToolTip="GB = G; MB = M; For 1GB enter 1G" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" IsEnabled="False">
                     <MenuItem.Icon>
-                        <materialDesign:PackIcon Kind="PlusBox" />
+                        <materialDesign:PackIcon Kind="CodeLessThanOrEqual"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <TextBox x:Name="maxRAM" Margin="10,0,0,0" Text="1G" Width="150" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" TextChanged="maxRAM_TextChanged"/>
@@ -96,20 +96,22 @@
                 </MenuItem>
                 <MenuItem x:Name="helpAbout" Header="About" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" Click="helpAbout_Click">
                     <MenuItem.Icon>
-                        <materialDesign:PackIcon Kind="Information" />
+                        <materialDesign:PackIcon Kind="InformationOutline" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
         </Menu>
 
-        <RichTextBox x:Name="ConsoleWindow" Margin="121,71,10,53" Block.LineHeight="12" IsReadOnly="True" VerticalScrollBarVisibility="Auto" FontSize="14">
+        <RichTextBox x:Name="ConsoleWindow" Margin="121,71,10,53" Block.LineHeight="12" IsReadOnly="True" VerticalScrollBarVisibility="Auto" FontSize="14" IsTabStop="False" SelectionOpacity="0">
             <FlowDocument>
                 <Paragraph/>
             </FlowDocument>
         </RichTextBox>
-        <Button x:Name="button" Content="RUN" Margin="0,0,10,12" Height="36" Background="{DynamicResource PrimaryHueMidBrush}" BorderBrush="{DynamicResource PrimaryHueMidBrush}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" FontFamily="Roboto" IsDefault="True" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="65" Click="SendCommandButton_Click" FontSize="14" FontWeight="Normal"/>
-        <TextBox x:Name="CommandInput" Margin="121,0,80,10" TextWrapping="Wrap" Height="36" VerticalAlignment="Bottom" KeyUp="CommandInput_KeyUp" FontSize="14"/>
+        <Button x:Name="button" Margin="0,0,10,10" FontFamily="Roboto" IsDefault="True" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="64" Height="64" Click="SendCommandButton_Click" Style="{DynamicResource MaterialDesignFloatingActionButton}" ToolTip="Start server">
+            <materialDesign:PackIcon Kind="Console" Width="32" Height="32"/>
+        </Button>
+        <TextBox x:Name="CommandInput" Margin="121,0,80,10" TextWrapping="Wrap" Height="36" VerticalAlignment="Bottom" KeyUp="CommandInput_KeyUp" FontSize="14" materialDesign:TextFieldAssist.Hint="Command"/>
         <ListBox x:Name="listBox1" HorizontalAlignment="Left" Margin="10,100,0,12" Width="106"/>
-        <Label x:Name="label" Content="Server offline" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="110"  Foreground="{DynamicResource MaterialDesignBody}" FontWeight="Bold"/>
+        <Label x:Name="label" Content="Server offline" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="110" FontWeight="Bold"/>
     </Grid>
 </Window>

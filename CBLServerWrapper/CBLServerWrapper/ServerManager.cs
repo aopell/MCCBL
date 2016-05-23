@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace CBLServerWrapper
 {
     public static class ServerManager
     {
+        public static string defaultWindowTitle = "Server Wrapper";
+
         public static Process MinecraftServer = null;
         public static string ServerJarPath;
         public static string LastRecievedMessage;
@@ -19,7 +22,12 @@ namespace CBLServerWrapper
         public static bool Restart = false;
         public static bool Switch = false;
         public static List<string> LoggedInPlayers = new List<string>();
-
+        public static string WorldName;
+        /// <summary>
+        /// Called to start a server
+        /// </summary>
+        /// <param name="fileName">location of server jar</param>
+        /// <param name="mainWindow">window target</param>
         public static void StartServer(string fileName, MainWindow mainWindow)
         {
             MinecraftServer = new Process();
@@ -40,7 +48,8 @@ namespace CBLServerWrapper
             MinecraftServer.Exited += MinecraftServer_Exited;
             ServerJarPath = fileName;
             ConsoleWindow = mainWindow;
-            mainWindow.Title = "Minecraft Server Wrapper - " + MinecraftServer.StartInfo.WorkingDirectory.Split('\\').Last();
+            GetWorldName(MinecraftServer.StartInfo.WorkingDirectory);
+            mainWindow.Title = MinecraftServer.StartInfo.WorkingDirectory.Split('\\').Last() + " | " + WorldName;
         }
 
         private static void MinecraftServer_ErrorDataReceived(object sender, DataReceivedEventArgs e)
@@ -56,6 +65,29 @@ namespace CBLServerWrapper
         private static void MinecraftServer_Exited(object sender, EventArgs e)
         {
             ConsoleWindow.ServerExited();
+        }
+        /// <summary>
+        /// Finds the name of the current world
+        /// </summary>
+        /// <param name="serverDir">Folder where the server is located</param>
+        public static void GetWorldName(string serverDir)
+        {
+
+            try
+            {
+                string line;
+                System.IO.StreamReader settingsFile = new System.IO.StreamReader(serverDir + @"\server.properties");
+                while ((line = settingsFile.ReadLine()) != null)
+                {
+                    string test = line.ToString();
+                    if (test.Contains("level-name="))
+                    {
+                        WorldName = test.Replace("level-name=", "").Trim();
+                    }
+                }
+                settingsFile.Close();
+            } 
+            catch { }
         }
     }
 }
