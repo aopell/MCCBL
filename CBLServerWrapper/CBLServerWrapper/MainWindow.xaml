@@ -13,12 +13,11 @@
         Loaded="Window_Loaded"
         Closing="Window_Closing" Icon="console2.ico">
     <Grid>
-
         <materialDesign:DialogHost Identifier="ADialogBox"/>
         <materialDesign:DialogHost Identifier="StopServer"/>
         <materialDesign:DialogHost Identifier="SwitchServer"/>
         <materialDesign:DialogHost Identifier="RestartServer"/>
-        <Menu x:Name="toolStrip" IsMainMenu="True" DockPanel.Dock="Top" Background="#FFF34235" Height="58" VerticalAlignment="Top">
+        <Menu x:Name="toolStrip" IsMainMenu="True" DockPanel.Dock="Top" Background="#FF607D8B" Height="58" VerticalAlignment="Top">
             <MenuItem x:Name="serverMenu" Header="Server" Height="{Binding ActualHeight, ElementName=toolStrip, Mode=OneWay}" Margin="5,0,0,0" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" FontSize="18" >
                 <MenuItem x:Name="serverStart" Header="Start" Click="serverStart_Click" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
                     <MenuItem.Icon>
@@ -107,8 +106,15 @@
                 <Paragraph/>
             </FlowDocument>
         </RichTextBox>
-        <Button x:Name="button" Margin="0,0,10,10" FontFamily="Roboto" IsDefault="True" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="64" Height="64" Click="SendCommandButton_Click" Style="{DynamicResource MaterialDesignFloatingActionButton}" ToolTip="Start server" Background="#FFF34235">
-            <materialDesign:PackIcon x:Name="fabIcon" Kind="Console" Width="32" Height="32"/>
+        <Button x:Name="button" Margin="0,0,10,10" FontFamily="Roboto" IsDefault="True" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="64" Height="64" Click="SendCommandButton_Click" Style="{DynamicResource MaterialDesignFloatingActionButton}" ToolTip="Start server" Background="#FF607D8B" BorderBrush="#FF607D8B">
+            <materialDesign:Transitioner x:Name="iconTransition">
+                <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect ExpandIn}">
+                    <materialDesign:PackIcon x:Name="fabIcon" Kind="Console" Width="32" Height="32"/>
+                </materialDesign:TransitionerSlide>
+                <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect ExpandIn}">
+                    <materialDesign:PackIcon x:Name="fabIcon2" Kind="Send" Width="32" Height="32"/>
+                </materialDesign:TransitionerSlide>
+            </materialDesign:Transitioner>
         </Button>
         <TextBox x:Name="CommandInput" Margin="121,0,80,10" TextWrapping="Wrap" Height="36" VerticalAlignment="Bottom" KeyUp="CommandInput_KeyUp" FontSize="18" materialDesign:TextFieldAssist.Hint="Command"/>
         <ListBox x:Name="listBox1" HorizontalAlignment="Left" Margin="10,100,0,12" Width="106"/>

@@ -57,10 +57,11 @@ namespace CBLServerWrapper
                 ServerManager.StartServer(ChooseFileDialog.FileName, this);
                 button.ToolTip = "Run command";
                 label.Content = "No players";
-                fabIcon.Kind = PackIconKind.Send;
+                iconTransition.SelectedIndex = 1;
 
                 toolStrip.Background = (SolidColorBrush)FindResource("PrimaryHueMidBrush");
                 button.Background = (SolidColorBrush)FindResource("PrimaryHueMidBrush");
+                button.BorderBrush = (SolidColorBrush)FindResource("PrimaryHueMidBrush");
 
                 listBox1.Items.Clear();
                 serverStart.IsEnabled = false;
@@ -88,14 +89,15 @@ namespace CBLServerWrapper
                     ConsoleWindow.ScrollToEnd();
 
                     listBox1.Items.Clear();
-                    fabIcon.Kind = PackIconKind.Console;
+                    iconTransition.SelectedIndex = 0;
                     label.Content = "Server offline";
                     button.ToolTip = "Start server";
 
                     ServerManager.MinecraftServer = null;
 
-                    toolStrip.Background = new SolidColorBrush(Color.FromRgb(243, 66, 53));
-                    button.Background = new SolidColorBrush(Color.FromRgb(243, 66, 53));
+                    toolStrip.Background = new SolidColorBrush(Color.FromRgb(96, 125, 139));
+                    button.Background = new SolidColorBrush(Color.FromRgb(96, 125, 139));
+                    button.BorderBrush = new SolidColorBrush(Color.FromRgb(96, 125, 139));
 
                     Title = ServerManager.DefaultWindowTitle;
                     serverStart.IsEnabled = true;
@@ -106,7 +108,6 @@ namespace CBLServerWrapper
                     serverRestart.IsEnabled = false;
                     serverSwitch.IsEnabled = false;
 
-                    ServerManager.MinecraftServer.StandardInput.Flush();
                     if (ServerManager.Restart || ServerManager.Switch)
                     {
                         StartServer();
@@ -718,6 +719,7 @@ namespace CBLServerWrapper
         {
             minRAM.Text = Settings.Default.MinRAM;
             maxRAM.Text = Settings.Default.MaxRAM;
+            iconTransition.SelectedIndex = 0;
         }
 
         /// <summary>

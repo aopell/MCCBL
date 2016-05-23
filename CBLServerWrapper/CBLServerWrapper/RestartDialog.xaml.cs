@@ -13,11 +13,12 @@ namespace CBLServerWrapper
         }
         public bool ShouldRestart;
 
-        private void cancel1_Click(object sender, System.EventArgs e)
+        private void cancel_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             ShouldRestart = false;
         }
-        private void ok1_Click(object sender, System.EventArgs e)
+
+        private void ok_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             ShouldRestart = true;
         }

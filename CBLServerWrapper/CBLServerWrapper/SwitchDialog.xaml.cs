@@ -22,7 +22,6 @@ namespace CBLServerWrapper
         private void ok_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             ShouldSwitch = true;
-
         }
     }
 }
